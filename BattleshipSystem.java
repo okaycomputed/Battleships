@@ -19,4 +19,19 @@ public class BattleshipSystem {
     public Player GetCurrPlayer() {
         return this.currPlayer;
     }
+
+    public void SetCurrPlayer(Player player) {
+        this.currPlayer = player;
+    }
+
+    public void SwitchPlayer() {
+        if (this.currPlayer.equals(allPlayers[PLAYER1_POS])) {
+            SetCurrPlayer(allPlayers[PLAYER2_POS]);
+        }
+        else if (this.currPlayer.equals(allPlayers[PLAYER2_POS])) {
+            SetCurrPlayer(allPlayers[PLAYER1_POS]);
+        }
+    }
+
+    
 }
