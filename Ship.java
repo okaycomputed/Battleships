@@ -5,7 +5,12 @@ public class Ship {
     private int shipEndXCoord;
     private int shipEndYCoord;
     private boolean isShipSunk;
-    private boolean isShipHit;
+    private int shipStatus;
+
+    // There are two outcomes to a hit, 1 = ship is hit, 2 = the projectile has missed
+    // and if the hit results in a sunken ship, isShipSunk = true
+    public static final int HIT_SHIP = -1;
+    public static final int HIT_MISSED = -2;
 
     public Ship(int shipStartXCoord, int shipStartYCoord, int shipEndXCoord, int shipEndYCoord) {
         this.shipStartXCoord = shipStartXCoord;
@@ -13,30 +18,33 @@ public class Ship {
         this.shipEndXCoord = shipEndXCoord;
         this.shipEndYCoord = shipEndYCoord;
         this.isShipSunk = false;
-        this.isShipHit = false;
     }
 
-    public int getShipStartXCoord() {
-        return shipStartXCoord;
+    public int GetShipStartXCoord() {
+        return this.shipStartXCoord;
     }
 
-    public int getShipStartYCoord() {
-        return shipStartYCoord;
+    public int GetShipStartYCoord() {
+        return this.shipStartYCoord;
     }
 
-    public int getShipEndXCoord() {
-        return shipEndXCoord;
+    public int GetShipEndXCoord() {
+        return this.shipEndXCoord;
     }
 
-    public int getShipEndYCoord() {
-        return shipEndYCoord;
+    public int GetShipEndYCoord() {
+        return this.shipEndYCoord;
     }
 
-    public boolean isShipSunk() {
-        return isShipSunk;
+    public boolean GetIsShipSunk() {
+        return this.isShipSunk;
     }
 
-    public boolean isShipHit() {
-        return isShipHit;
+    public int GetShipStatus() {
+        return this.shipStatus;
+    }
+
+    public void SetShipStatus(int shipStatus) {
+        this.shipStatus = shipStatus;
     }
 }

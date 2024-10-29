@@ -17,7 +17,12 @@ public class BattleshipMain {
         String player2Name = input.nextLine();
 
         bs = new BattleshipSystem(player1Name, player2Name);
+        d.GameStatus(bs.GetCurrPlayer());
+        d.ShowSelfGrid(bs.GetCurrPlayer().GetSelfGrid());
         d.ShowOpponentGrid(bs.GetCurrPlayer().GetOpponentGrid());
+
+        System.out.println("Please enter the x-coordinate to hit: ");
+        System.out.println("Please enter the y-coordinate to hit: ");
 
     }
 }

@@ -23,6 +23,7 @@ public class Displayer {
     }
 
     public void ShowOpponentGrid(Ship[][] opponentGrid) {
+        System.out.println("Your opponent's grid:");
         System.out.println("\t+---+---+---+---+---+---+---+---+---+---+");
         for (int row = 0; row < BattleshipSystem.GRID_HEIGHT; row++) {
             System.out.print("\t|");
@@ -33,10 +34,15 @@ public class Displayer {
                 if (opponentGrid[row][col] == null) {
                     System.out.print(" ");
                 }
-                else if (opponentGrid[row][col].isShipHit()) {
+                else if (opponentGrid[row][col].GetShipStatus() == Ship.HIT_SHIP) {
                     System.out.print("+");
                 }
-                else if (opponentGrid[row][col].isShipSunk()) {
+
+                else if (opponentGrid[row][col].GetShipStatus() == Ship.HIT_MISSED) {
+                    System.out.println("#");
+                }
+
+                else if (opponentGrid[row][col].GetIsShipSunk()) {
                     System.out.print("X");
                 }
 
@@ -51,7 +57,43 @@ public class Displayer {
         System.out.printf("%3s %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d\n", "COL", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
     }
 
-    public void ShowSelfGrid(Player p) {
+    public void ShowSelfGrid(Ship[][] selfGrid) {
+        System.out.println("Your grid:");
+        System.out.println("\t+---+---+---+---+---+---+---+---+---+---+");
+        for (int row = 0; row < BattleshipSystem.GRID_HEIGHT; row++) {
+            System.out.print("\t|");
 
+            for (int col = 0; col < BattleshipSystem.GRID_WIDTH; col++) {
+                System.out.print(" ");
+
+                if(selfGrid[row][col] != null) {
+                    System.out.print("S");
+                }
+
+                else if(selfGrid[row][col] == null) {
+                    System.out.print(" ");
+                }
+
+                else if(selfGrid[row][col].GetShipStatus() == Ship.HIT_SHIP) {
+                    System.out.print("+");
+                }
+
+                else if(selfGrid[row][col].GetShipStatus() == Ship.HIT_MISSED) {
+                    System.out.print("#");
+                }
+
+                else if(selfGrid[row][col].GetIsShipSunk()) {
+                    System.out.print("X");
+                }
+
+                System.out.print(" ");
+                System.out.print("|");
+            }
+
+            System.out.println();
+            System.out.println("\t+---+---+---+---+---+---+---+---+---+---+");
+        }
+
+        System.out.printf("%3s %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d\n", "COL", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
     }
 }
