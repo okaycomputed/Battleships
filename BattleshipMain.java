@@ -36,8 +36,6 @@ public class BattleshipMain {
         System.out.print("Please enter the y-coordinate to hit: ");
         int attackYCor = input.nextInt();
 
-        System.out.println("Hello I am testing my push (Cassie)");
-
         // Insert error checking here to ensure that the ship can be hit
         // return the results of the attack
     }
