@@ -38,5 +38,6 @@ public class BattleshipMain {
 
         // Insert error checking here to ensure that the ship can be hit
         // return the results of the attack
+        System.out.println("thanks");
     }
 }
