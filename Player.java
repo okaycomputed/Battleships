@@ -61,10 +61,6 @@ public class Player {
         return this.numShipsSunk;
     }
 
-    public int GetPlayerNum() {
-        return this.playerNum;
-    }
-
     public Ship[][] GetSelfGrid() {
         return this.selfGrid;
     }
