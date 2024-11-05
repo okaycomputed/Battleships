@@ -33,5 +33,8 @@ public class BattleshipSystem {
         }
     }
 
-    
+    public boolean IsShipHit() {
+        return false;
+    }
+
 }

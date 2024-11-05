@@ -1,4 +1,4 @@
-public class Ship {
+public abstract class Ship {
     private int numShips;
     private int shipStartXCoord;
     private int shipStartYCoord;
@@ -6,6 +6,7 @@ public class Ship {
     private int shipEndYCoord;
     private boolean isShipSunk;
     private int shipStatus;
+    public final static int SHIP_ATTACKING = 1;
 
     // There are two outcomes to a hit, 1 = ship is hit, 2 = the projectile has missed
     // and if the hit results in a sunken ship, isShipSunk = true
@@ -18,6 +19,11 @@ public class Ship {
         this.shipEndXCoord = shipEndXCoord;
         this.shipEndYCoord = shipEndYCoord;
         this.isShipSunk = false;
+    }
+
+    public Ship(int xCor, int yCor) {
+        this.shipStartXCoord = xCor;
+        this.shipStartYCoord = yCor;
     }
 
     public int GetShipStartXCoord() {
@@ -47,4 +53,6 @@ public class Ship {
     public void SetShipStatus(int shipStatus) {
         this.shipStatus = shipStatus;
     }
+
+    public abstract char[][] Attack(int xCor, int yCor);
 }
