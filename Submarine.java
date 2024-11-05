@@ -3,7 +3,7 @@ public class Submarine extends Ship {
         super(shipStartXCoord, shipStartYCoord, shipEndXCoord, shipEndYCoord);
     }
 
-    public char[][] Attack(int xCor, int yCor) {
+    public char[][] Attack(int xCor, int yCor, int orientation) {
         char[][] attack = new char[5][2];
         return attack;
     }
