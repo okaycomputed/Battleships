@@ -10,14 +10,22 @@ public class BattleshipMain {
         input.nextLine();
 
         // Game starts
+        // Allow users to enter their own name
         System.out.print("Player 1, please enter your name: ");
         String player1Name = input.nextLine();
 
         System.out.print("Player 2, please enter your name: ");
         String player2Name = input.nextLine();
 
+        // Creates the game system using the names as a parameter
         bs = new BattleshipSystem(player1Name, player2Name);
 
+        // Initializing player grids
+        bs.GetCurrPlayer().InitializeSelfGrid();
+
+        boolean gameOver = false;
+
+        // ======== DISPLAYING PLAYER GRIDS ========
         d.GameStatus(bs.GetCurrPlayer());
         d.ShowSelfGrid(bs.GetCurrPlayer().GetSelfGrid());
         System.out.println();
