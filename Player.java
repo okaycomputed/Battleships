@@ -11,7 +11,7 @@ public class Player {
     public static final int TOTAL_NUM_SHIPS  = 5;
 
     // Global chars to represent the different grid statuses
-    public static final char EMPTY = '-';
+    public static final char EMPTY   = '-';
     public static final char SHIP    = 'S';
     public static final char SUNK    = 'X';
     public static final char HIT     = '+';
