@@ -1,4 +1,10 @@
 public class Displayer {
+    //======================= CONSTRUCTOR =======================//
+    public Displayer() {
+    }
+
+    //====================== PUBLIC METHOD =======================//
+    /* Displays the game title screen */
     public void GameHeader() {
         System.out.println("====================================");
         System.out.println("|      WELCOME TO BATTLESHIPS!     |");
@@ -14,6 +20,7 @@ public class Displayer {
         System.out.println("Press 'enter' to start");
     }
 
+    /* Displays the player's game status */
     public void GameStatus(Player p) {
         System.out.println("---------- CURRENT STATUS ----------");
         System.out.println("Player Name     : " + p.GetPlayerName());
@@ -22,6 +29,7 @@ public class Displayer {
         System.out.println("-------------------------------------");
     }
 
+    /* Displays the grid that the player can attack */
     public void ShowOpponentGrid(Ship[][] opponentGrid) {
         System.out.println("Your opponent's grid:");
         System.out.println("\t+---+---+---+---+---+---+---+---+---+---+");
@@ -57,6 +65,7 @@ public class Displayer {
         System.out.printf("%3s %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d\n", "COL", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
     }
 
+    /* Displays the player's own ships */
     public void ShowSelfGrid(Ship[][] selfGrid) {
         System.out.println("Your grid:");
         System.out.println("\t+---+---+---+---+---+---+---+---+---+---+");

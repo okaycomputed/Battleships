@@ -9,8 +9,8 @@ public class Ship {
 
     // There are two outcomes to a hit, 1 = ship is hit, 2 = the projectile has missed
     // and if the hit results in a sunken ship, isShipSunk = true
-    public static final int HIT_SHIP = -1;
-    public static final int HIT_MISSED = -2;
+    public static final int HIT_SHIP    = -1;
+    public static final int HIT_MISSED  = -2;
 
     public Ship(int shipStartXCoord, int shipStartYCoord, int shipEndXCoord, int shipEndYCoord) {
         this.shipStartXCoord = shipStartXCoord;
