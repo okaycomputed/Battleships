@@ -17,6 +17,7 @@ public class BattleshipMain {
         String player2Name = input.nextLine();
 
         bs = new BattleshipSystem(player1Name, player2Name);
+
         d.GameStatus(bs.GetCurrPlayer());
         d.ShowSelfGrid(bs.GetCurrPlayer().GetSelfGrid());
         d.ShowOpponentGrid(bs.GetCurrPlayer().GetOpponentGrid());

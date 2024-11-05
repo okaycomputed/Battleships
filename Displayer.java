@@ -30,7 +30,7 @@ public class Displayer {
     }
 
     /* Displays the grid that the player can attack */
-    public void ShowOpponentGrid(Ship[][] opponentGrid) {
+    public void ShowOpponentGrid(char[][] opponentGrid) {
         System.out.println("Your opponent's grid:");
         System.out.println("\t+---+---+---+---+---+---+---+---+---+---+");
         for (int row = 0; row < BattleshipSystem.GRID_HEIGHT; row++) {
@@ -39,19 +39,19 @@ public class Displayer {
             for (int col = 0; col < BattleshipSystem.GRID_WIDTH; col++) {
                 System.out.print(" ");
 
-                if (opponentGrid[row][col] == null) {
+                if (opponentGrid[row][col] == Player.EMPTY) {
                     System.out.print(" ");
                 }
-                else if (opponentGrid[row][col].GetShipStatus() == Ship.HIT_SHIP) {
-                    System.out.print("+");
+                else if (opponentGrid[row][col] == Player.HIT) {
+                    System.out.print(Player.HIT);
                 }
 
-                else if (opponentGrid[row][col].GetShipStatus() == Ship.HIT_MISSED) {
-                    System.out.println("#");
+                else if (opponentGrid[row][col] == Player.MISS) {
+                    System.out.print(Player.MISS);
                 }
 
-                else if (opponentGrid[row][col].GetIsShipSunk()) {
-                    System.out.print("X");
+                else if (opponentGrid[row][col] == Player.SUNK) {
+                    System.out.print(Player.SUNK);
                 }
 
                 System.out.print(" ");
@@ -66,7 +66,7 @@ public class Displayer {
     }
 
     /* Displays the player's own ships */
-    public void ShowSelfGrid(Ship[][] selfGrid) {
+    public void ShowSelfGrid(char[][] selfGrid) {
         System.out.println("Your grid:");
         System.out.println("\t+---+---+---+---+---+---+---+---+---+---+");
         for (int row = 0; row < BattleshipSystem.GRID_HEIGHT; row++) {
@@ -75,24 +75,24 @@ public class Displayer {
             for (int col = 0; col < BattleshipSystem.GRID_WIDTH; col++) {
                 System.out.print(" ");
 
-                if(selfGrid[row][col] != null) {
-                    System.out.print("S");
+                if(selfGrid[row][col] == Player.SHIP) {
+                    System.out.print(Player.SHIP);
                 }
 
-                else if(selfGrid[row][col] == null) {
+                else if(selfGrid[row][col] == Player.EMPTY) {
                     System.out.print(" ");
                 }
 
-                else if(selfGrid[row][col].GetShipStatus() == Ship.HIT_SHIP) {
-                    System.out.print("+");
+                else if(selfGrid[row][col] == Player.HIT) {
+                    System.out.print(Player.HIT);
                 }
 
-                else if(selfGrid[row][col].GetShipStatus() == Ship.HIT_MISSED) {
-                    System.out.print("#");
+                else if(selfGrid[row][col] == Player.MISS) {
+                    System.out.print(Player.MISS);
                 }
 
-                else if(selfGrid[row][col].GetIsShipSunk()) {
-                    System.out.print("X");
+                else if(selfGrid[row][col] == Player.SUNK) {
+                    System.out.print(Player.SUNK);
                 }
 
                 System.out.print(" ");
