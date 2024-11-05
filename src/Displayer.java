@@ -32,9 +32,11 @@ public class Displayer {
     /* Displays the grid that the player can attack */
     public void ShowOpponentGrid(char[][] opponentGrid) {
         System.out.println("Your opponent's grid:");
+
+        System.out.printf("\t%3d %3d %3d %3d %3d %3d %3d %3d %3d %3d\n", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
         System.out.println("\t+---+---+---+---+---+---+---+---+---+---+");
         for (int row = 0; row < BattleshipSystem.GRID_HEIGHT; row++) {
-            System.out.print("\t|");
+            System.out.print(" " + row + "  |");
 
             for (int col = 0; col < BattleshipSystem.GRID_WIDTH; col++) {
                 System.out.print(" ");
@@ -61,16 +63,15 @@ public class Displayer {
             System.out.println();
             System.out.println("\t+---+---+---+---+---+---+---+---+---+---+");
         }
-
-        System.out.printf("%3s %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d\n", "COL", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
     }
 
     /* Displays the player's own ships */
     public void ShowSelfGrid(char[][] selfGrid) {
         System.out.println("Your grid:");
+        System.out.printf("\t%3d %3d %3d %3d %3d %3d %3d %3d %3d %3d\n", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
         System.out.println("\t+---+---+---+---+---+---+---+---+---+---+");
         for (int row = 0; row < BattleshipSystem.GRID_HEIGHT; row++) {
-            System.out.print("\t|");
+            System.out.print(" " + row + "  |");
 
             for (int col = 0; col < BattleshipSystem.GRID_WIDTH; col++) {
                 System.out.print(" ");
@@ -102,7 +103,5 @@ public class Displayer {
             System.out.println();
             System.out.println("\t+---+---+---+---+---+---+---+---+---+---+");
         }
-
-        System.out.printf("%3s %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d\n", "COL", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
     }
 }
