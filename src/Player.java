@@ -39,7 +39,7 @@ public class Player {
 
     //====================== PRIVATE METHOD =======================//
 
-    private void placeCarrier(char[][] selfGrid, int index, int shipOrientation, int length) {
+    private void placeCarrier(char[][] selfGrid, int shipOrientation, int length) {
         int xCor, yCor;
         boolean isShipPlaced = false;
         do {
@@ -49,7 +49,7 @@ public class Player {
 
             // Checking ship orientation and ensuring that the end value is not out of bounds
             if(shipOrientation == VERTICAL && yCor + length < BattleshipSystem.GRID_HEIGHT) {
-                playerShips[index] = new Carrier(xCor, yCor, xCor, yCor + length);
+                playerShips[0] = new Carrier(xCor, yCor, xCor, yCor + length);
                 // Updates the char array
                 for(int y = yCor; y < yCor + length; y++) {
                     selfGrid[y][xCor] = SHIP;
@@ -58,7 +58,7 @@ public class Player {
             }
 
             else if(shipOrientation == HORIZONTAL && xCor + length< BattleshipSystem.GRID_WIDTH){
-                playerShips[index] = new Carrier(xCor, yCor, xCor + length, yCor);
+                playerShips[0] = new Carrier(xCor, yCor, xCor + length, yCor);
                 for(int x = xCor; x < xCor + length; x++) {
                     selfGrid[yCor][x] = SHIP;
                 }
@@ -70,7 +70,7 @@ public class Player {
 
     //====================== PUBLIC METHOD =======================//
     public void InitializeSelfGrid() {
-        placeCarrier(selfGrid, 0, ((int) (Math.random() * 1) + 1), Carrier.CARRIER_LENGTH);
+        placeCarrier(selfGrid, ((int) (Math.random() * 1) + 1), Carrier.CARRIER_LENGTH);
     }
 
     public String GetPlayerName() {
