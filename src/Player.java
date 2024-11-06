@@ -38,8 +38,11 @@ public class Player {
      }
 
     //====================== PRIVATE METHOD =======================//
-
-    private void placeCarrier(char[][] selfGrid, int shipOrientation, int length) {
+    /* Private method places a ship object of "carrier" subclass onto the grid on random coordinates
+     * @param selfGrid           - Passes in the current player's grid
+     * @param shipOrientation    - Randomizes a number either 0 or 1 which will determine if the ship is placed
+     *                           - vertically or horizontally */
+    private void placeCarrier(char[][] selfGrid, int shipOrientation) {
         int xCor, yCor;
         boolean isShipPlaced = false;
         do {
@@ -48,29 +51,31 @@ public class Player {
             yCor = (int) (Math.random() * 9) + 1;
 
             // Checking ship orientation and ensuring that the end value is not out of bounds
-            if(shipOrientation == VERTICAL && yCor + length < BattleshipSystem.GRID_HEIGHT) {
-                playerShips[0] = new Carrier(xCor, yCor, xCor, yCor + length);
+            if(shipOrientation == VERTICAL && yCor + Carrier.CARRIER_LENGTH < BattleshipSystem.GRID_HEIGHT) {
+                playerShips[0] = new Carrier(xCor, yCor, xCor, yCor + Carrier.CARRIER_LENGTH);
                 // Updates the char array
-                for(int y = yCor; y < yCor + length; y++) {
+                for(int y = yCor; y < yCor + Carrier.CARRIER_LENGTH; y++) {
                     selfGrid[y][xCor] = SHIP;
                 }
                 isShipPlaced = true;
             }
 
-            else if(shipOrientation == HORIZONTAL && xCor + length< BattleshipSystem.GRID_WIDTH){
-                playerShips[0] = new Carrier(xCor, yCor, xCor + length, yCor);
-                for(int x = xCor; x < xCor + length; x++) {
+            else if(shipOrientation == HORIZONTAL && xCor + Carrier.CARRIER_LENGTH < BattleshipSystem.GRID_WIDTH){
+                playerShips[0] = new Carrier(xCor, yCor, xCor + Carrier.CARRIER_LENGTH, yCor);
+                for(int x = xCor; x < xCor + Carrier.CARRIER_LENGTH; x++) {
                     selfGrid[yCor][x] = SHIP;
                 }
                 isShipPlaced = true;
             }
         }
         while(!isShipPlaced);
+        // Use of "do-while" loop in order to continuously randomize coordinates until they are valid and in
+        // bounds of the grid array
     }
 
     //====================== PUBLIC METHOD =======================//
     public void InitializeSelfGrid() {
-        placeCarrier(selfGrid, ((int) (Math.random() * 1) + 1), Carrier.CARRIER_LENGTH);
+        placeCarrier(selfGrid, ((int) (Math.random() * 1) + 1));
     }
 
     public String GetPlayerName() {
