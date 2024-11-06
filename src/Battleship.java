@@ -5,8 +5,19 @@ public class Battleship extends Ship {
         super(shipStartXCoord, shipStartYCoord, shipEndXCoord, shipEndYCoord);
     }
 
-    public char[][] Attack(int xCor, int yCor) {
+    public char[][] Attack(int xCor, int yCor, int orientation) {
         char[][] attack = new char[3][2];
+            for (int i = 0; i < attack.length; i++) {
+                int j = 0;
+                attack[i][j] = (char) xCor;
+                attack[i][j+1] = (char) yCor;
+                if ( orientation == Player.HORIZONTAL && xCor < BattleshipSystem.GRID_WIDTH - 1) {
+                    xCor++;
+                }
+                else if (orientation == Player.VERTICAL && yCor < BattleshipSystem.GRID_HEIGHT - 1) {
+                    yCor++;
+                }
+            }
         return attack;
     }
 }

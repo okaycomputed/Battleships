@@ -54,5 +54,5 @@ public abstract class Ship {
         this.shipStatus = shipStatus;
     }
 
-    public abstract char[][] Attack(int xCor, int yCor);
+    public abstract char[][] Attack(int xCor, int yCor, int orientation);
 }
