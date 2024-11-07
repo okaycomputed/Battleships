@@ -52,6 +52,9 @@ public class Player {
      }
 
     //====================== PRIVATE METHOD =======================//
+    /* Private method updates the ship grid by drawing a one block rectangle around a ship so that other ships cannot
+       be placed next to a ship
+     * @param shipGrid - Passes in the 12x12 ship grid containing all the blocked out positions of the ships on the board */
     private void updateShipGrid(char[][] shipGrid, int xStart, int yStart, int xEnd, int yEnd) {
         // Translate the positions on a regular "game grid" to the 12x12 "ship grid"
         // All coordinates should be incremented by ONE
@@ -62,7 +65,14 @@ public class Player {
         }
     }
 
-    public boolean checkPositionValid(char[][] shipGrid, int xStart, int yStart, int xEnd, int yEnd, int length, int shipOrientation) {
+    /* Private method that takes in the coordinates of a ship and compares it to the ship array to see if it can be
+     * placed. If the ship grid is empty, that means there is free space.
+     * @param length          - Length of a ship; how many blocks it occupies
+     * @param shipOrientation - Randomizes a number either 0 or 1 which will determine if the ship is placed
+     *                        - vertically or horizontally
+     * @return                - Returns "true" if there is free space for a ship to be placed */
+    public boolean checkPositionValid(char[][] shipGrid, int xStart, int yStart, int xEnd, int yEnd,
+                                      int length, int shipOrientation) {
         int count = 0;
         if(shipOrientation == VERTICAL) {
             for(int y = yStart; y <= yEnd; y++) {
@@ -100,6 +110,7 @@ public class Player {
             // Checking ship orientation and ensuring that the end value is not out of bounds
             if (shipOrientation == VERTICAL && yEnd < BattleshipSystem.GRID_LENGTH) {
                 if(checkPositionValid(shipGrid, xStart, yStart, xStart, yEnd, Carrier.CARRIER_LENGTH, VERTICAL)) {
+                    // Creates the ship object inside the playerShips Ship object array
                     playerShips[0] = new Carrier(xStart, yStart, xStart, yEnd);
                     // Updates the char array
                     for (int y = yStart; y <= yEnd; y++) {
@@ -122,9 +133,14 @@ public class Player {
             }
         }
         while (!isShipPlaced);
-        // Use of "do-while" loop in order to continuously randomize coordinates until they are valid and in
-        // bounds of the grid array
     }
+
+    /* Just drafting out my thoughts here, but I was thinking making a method to RETURN the coordinates? Like maybe as
+       an array right because there are multiple numbers to return. Then, I can make another method to PLACE the ships
+       I think that if I make multiple methods similar to the 'placeCarrier' method its just going to be repeating a lot
+       of unneeded code.
+       One method to: Randomize coordinates, check if they are valid, then return
+       Another method to: Do blocking inside the ship grid, and update the char selfGrid */
 
     //====================== PUBLIC METHOD =======================//
     public void InitializeSelfGrid() {

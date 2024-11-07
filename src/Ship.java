@@ -1,9 +1,9 @@
 public abstract class Ship {
     private int numShips;
-    private int shipStartXCoord;
-    private int shipStartYCoord;
-    private int shipEndXCoord;
-    private int shipEndYCoord;
+    private int xStart;
+    private int yStart;
+    private int xEnd;
+    private int yEnd;
     private boolean isShipSunk;
     private int shipStatus;
     public final static int SHIP_ATTACKING = 1;
@@ -13,33 +13,33 @@ public abstract class Ship {
     public static final int HIT_SHIP    = -1;
     public static final int HIT_MISSED  = -2;
 
-    public Ship(int shipStartXCoord, int shipStartYCoord, int shipEndXCoord, int shipEndYCoord) {
-        this.shipStartXCoord = shipStartXCoord;
-        this.shipStartYCoord = shipStartYCoord;
-        this.shipEndXCoord = shipEndXCoord;
-        this.shipEndYCoord = shipEndYCoord;
+    public Ship(int xStart, int yStart, int xEnd, int yEnd) {
+        this.xStart = xStart;
+        this.yStart = yStart;
+        this.xEnd = xEnd;
+        this.yEnd = yEnd;
         this.isShipSunk = false;
     }
 
     public Ship(int xCor, int yCor) {
-        this.shipStartXCoord = xCor;
-        this.shipStartYCoord = yCor;
+        this.xStart = xCor;
+        this.yStart = yCor;
     }
 
     public int GetShipStartXCoord() {
-        return this.shipStartXCoord;
+        return this.xStart;
     }
 
     public int GetShipStartYCoord() {
-        return this.shipStartYCoord;
+        return this.yStart;
     }
 
     public int GetShipEndXCoord() {
-        return this.shipEndXCoord;
+        return this.xEnd;
     }
 
     public int GetShipEndYCoord() {
-        return this.shipEndYCoord;
+        return this.yEnd;
     }
 
     public boolean IsShipSunk() {
