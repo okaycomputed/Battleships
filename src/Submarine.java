@@ -1,8 +1,8 @@
 public class Submarine extends Ship {
     public static final int SUBMARINE_LENGTH = 3;
 
-    public Submarine(int shipStartXCoord, int shipStartYCoord, int shipEndXCoord, int shipEndYCoord) {
-        super(shipStartXCoord, shipStartYCoord, shipEndXCoord, shipEndYCoord);
+    public Submarine(int shipStartXCoord, int shipStartYCoord, int shipEndXCoord, int shipEndYCoord, int size) {
+        super(shipStartXCoord, shipStartYCoord, shipEndXCoord, shipEndYCoord, size);
     }
 
     public char[][] Attack(int xCor, int yCor, int orientation) {
@@ -18,12 +18,12 @@ public class Submarine extends Ship {
             attack[1][j + 1] = (char) yCor;
         }
         // Right side of the cross attack pattern
-        if (xCor < BattleshipSystem.GRID_WIDTH - 1) {
+        if (xCor < BattleshipSystem.GRID_LENGTH - 1) {
             attack[2][j] = (char) (xCor + 1);
             attack[2][j + 1] = (char) yCor;
         }
         // Upper part of the cross attack pattern
-        if (yCor < BattleshipSystem.GRID_HEIGHT - 1) {
+        if (yCor < BattleshipSystem.GRID_LENGTH - 1) {
             attack[3][j] = (char) xCor;
             attack[3][j + 1] = (char) (yCor + 1);
         }

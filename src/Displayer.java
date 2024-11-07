@@ -35,10 +35,10 @@ public class Displayer {
 
         System.out.printf("\t%3d %3d %3d %3d %3d %3d %3d %3d %3d %3d\n", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
         System.out.println("\t+---+---+---+---+---+---+---+---+---+---+");
-        for (int row = 0; row < BattleshipSystem.GRID_HEIGHT; row++) {
+        for (int row = 0; row < BattleshipSystem.GRID_LENGTH; row++) {
             System.out.print(" " + row + "  |");
 
-            for (int col = 0; col < BattleshipSystem.GRID_WIDTH; col++) {
+            for (int col = 0; col < BattleshipSystem.GRID_LENGTH; col++) {
                 System.out.print(" ");
 
                 if (opponentGrid[row][col] == Player.EMPTY) {
@@ -70,10 +70,10 @@ public class Displayer {
         System.out.println("Your grid:");
         System.out.printf("\t%3d %3d %3d %3d %3d %3d %3d %3d %3d %3d\n", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
         System.out.println("\t+---+---+---+---+---+---+---+---+---+---+");
-        for (int row = 0; row < BattleshipSystem.GRID_HEIGHT; row++) {
+        for (int row = 0; row < BattleshipSystem.GRID_LENGTH; row++) {
             System.out.print(" " + row + "  |");
 
-            for (int col = 0; col < BattleshipSystem.GRID_WIDTH; col++) {
+            for (int col = 0; col < BattleshipSystem.GRID_LENGTH; col++) {
                 System.out.print(" ");
 
                 if(selfGrid[row][col] == Player.SHIP) {
@@ -102,6 +102,17 @@ public class Displayer {
 
             System.out.println();
             System.out.println("\t+---+---+---+---+---+---+---+---+---+---+");
+        }
+    }
+
+    // FOR TESTING PURPOSES ONLY
+    public void DisplayShipGrid(char[][] shipGrid) {
+        for(int i = 0; i < shipGrid.length; i++) {
+            for(int j = 0; j < shipGrid.length; j++) {
+                System.out.print(shipGrid[i][j] + " ");
+            }
+
+            System.out.println();
         }
     }
 }
