@@ -6,7 +6,6 @@ public abstract class Ship {
     private int shipEndYCoord;
     private boolean isShipSunk;
     private int shipStatus;
-    private int size;
     public final static int SHIP_ATTACKING = 1;
 
     // There are two outcomes to a hit, 1 = ship is hit, 2 = the projectile has missed
@@ -14,12 +13,11 @@ public abstract class Ship {
     public static final int HIT_SHIP    = -1;
     public static final int HIT_MISSED  = -2;
 
-    public Ship(int shipStartXCoord, int shipStartYCoord, int shipEndXCoord, int shipEndYCoord, int size) {
+    public Ship(int shipStartXCoord, int shipStartYCoord, int shipEndXCoord, int shipEndYCoord) {
         this.shipStartXCoord = shipStartXCoord;
         this.shipStartYCoord = shipStartYCoord;
         this.shipEndXCoord = shipEndXCoord;
         this.shipEndYCoord = shipEndYCoord;
-        this.size = size;
         this.isShipSunk = false;
     }
 
@@ -58,7 +56,4 @@ public abstract class Ship {
 
     public abstract char[][] Attack(int xCor, int yCor, int orientation);
 
-    public int GetSize() {
-        return this.size;
-    }
 }

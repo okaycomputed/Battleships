@@ -28,7 +28,7 @@ public class Player {
         this.playerName = playerName;
         selfGrid = new char[BattleshipSystem.GRID_LENGTH][BattleshipSystem.GRID_LENGTH];
         opponentGrid = new char[BattleshipSystem.GRID_LENGTH][BattleshipSystem.GRID_LENGTH];
-        shipGrid = new char[BattleshipSystem.GRID_LENGTH][BattleshipSystem.GRID_LENGTH];
+        shipGrid = new char[12][12];
         numShipsAlive = TOTAL_NUM_SHIPS;
         numShipsSunk = 0;
 
@@ -37,6 +37,12 @@ public class Player {
             for(int col = 0; col < BattleshipSystem.GRID_LENGTH; col++) {
                 selfGrid[row][col] = EMPTY;
                 opponentGrid[row][col] = EMPTY;
+            }
+        }
+
+        // Initializing ship grid
+        for(int row = 0; row < shipGrid.length; row++) {
+            for(int col = 0; col < shipGrid.length; col++) {
                 shipGrid[row][col] = EMPTY;
             }
         }
@@ -46,50 +52,29 @@ public class Player {
      }
 
     //====================== PRIVATE METHOD =======================//
-    private void updateShipGrid(char[][] shipGrid, int xStart, int yStart, int xEnd, int yEnd, int shipOrientation) {
-        if(shipOrientation == HORIZONTAL) {
-            // Ship is placed in the right corner
-            if((yStart - 1 < 0 || xStart - 1 < 0)
-                    && (yEnd + 2 < BattleshipSystem.GRID_LENGTH || xEnd + 1 < BattleshipSystem.GRID_LENGTH)) {
-                for (int y = yStart; y < yEnd + 2; y++) {
-                    for (int x = xStart; x < xEnd + 1; x++) {
-                        shipGrid[y][x] = OCCUPIED;
-                    }
-                }
+    private void updateShipGrid(char[][] shipGrid, int xStart, int yStart, int xEnd, int yEnd) {
+        // Translate the positions on a regular "game grid" to the 12x12 "ship grid"
+        // All coordinates should be incremented by ONE
+        for (int y = (yStart + 1) - 1; y <= (yEnd + 1) + 1; y++) {
+            for (int x = (xStart + 1) - 1; x <= (xEnd + 1) + 1; x++) {
+                shipGrid[y][x] = OCCUPIED;
             }
-            // Ship is placed in the left corner
-            else if ((yStart - 1 > 0 || xStart - 1 > 0)
-                    && (yEnd + 2 > BattleshipSystem.GRID_LENGTH || xEnd + 1 > BattleshipSystem.GRID_LENGTH)){
-                for (int y = yStart - 1; y < yEnd; y++) {
-                    for (int x = xStart - 1; x < xEnd; x++) {
-                        shipGrid[y][x] = OCCUPIED;
-                    }
-                }
-            }
+        }
+    }
 
-            else {
-                for (int y = yStart - 1; y < yEnd + 2; y++) {
-                    for (int x = xStart - 1; x < xEnd + 1; x++) {
-                        shipGrid[y][x] = OCCUPIED;
-                    }
+    public boolean checkPositionValid(char[][] shipGrid, int xStart, int yStart, int xEnd, int yEnd, int length, int shipOrientation) {
+        int count = 0;
+        if(shipOrientation == VERTICAL) {
+            for(int y = yStart; y <= yEnd; y++) {
+                if(shipGrid[y][xStart] == EMPTY) {
+                    count++;
                 }
             }
         }
 
         else {
-            for (int y = yStart - 1; y < yEnd + 1; y++) {
-                for (int x = xStart - 1; x < xEnd + 2; x++) {
-                    shipGrid[y][x] = OCCUPIED;
-                }
-            }
-        }
-    }
-
-    private boolean checkPositionValid(char[][] shipGrid, int xStart, int yStart, int xEnd, int yEnd, int length) {
-        int count = 0;
-        for(int y = yStart; y < yEnd; y++) {
-            for(int x = xStart; x < xEnd; x++) {
-                if(shipGrid[y][x] == EMPTY) {
+            for(int x = xStart; x <= xEnd; x++) {
+                if(shipGrid[yStart][x] == EMPTY) {
                     count++;
                 }
             }
@@ -102,32 +87,38 @@ public class Player {
      * @param shipOrientation    - Randomizes a number either 0 or 1 which will determine if the ship is placed
      *                           - vertically or horizontally */
     private void placeCarrier(char[][] selfGrid, char[][] shipGrid, int shipOrientation) {
-        int xCor, yCor;
+        int xStart, yStart, xEnd, yEnd;
         boolean isShipPlaced = false;
         do {
             // Randomize starting coordinates
-            xCor = rand.nextInt(10);
-            yCor = rand.nextInt(10);
+            xStart = rand.nextInt(10);
+            yStart = rand.nextInt(10);
+
+            xEnd = (xStart + Carrier.CARRIER_LENGTH) - 1;
+            yEnd = (yStart + Carrier.CARRIER_LENGTH) - 1;
 
             // Checking ship orientation and ensuring that the end value is not out of bounds
-            if (shipOrientation == VERTICAL && yCor + Carrier.CARRIER_LENGTH < BattleshipSystem.GRID_LENGTH) {
-                playerShips[0] = new Carrier(xCor, yCor, xCor, yCor + Carrier.CARRIER_LENGTH, Carrier.CARRIER_LENGTH);
-                // Updates the char array
-                for (int y = yCor; y < yCor + Carrier.CARRIER_LENGTH; y++) {
-                    selfGrid[y][xCor] = SHIP;
+            if (shipOrientation == VERTICAL && yEnd < BattleshipSystem.GRID_LENGTH) {
+                if(checkPositionValid(shipGrid, xStart, yStart, xStart, yEnd, Carrier.CARRIER_LENGTH, VERTICAL)) {
+                    playerShips[0] = new Carrier(xStart, yStart, xStart, yEnd);
+                    // Updates the char array
+                    for (int y = yStart; y <= yEnd; y++) {
+                        selfGrid[y][xStart] = SHIP;
+                    }
+                    updateShipGrid(shipGrid, xStart, yStart, xStart, yEnd);
+                    isShipPlaced = true;
                 }
-
-                updateShipGrid(shipGrid, xCor, yCor, xCor, yCor + Carrier.CARRIER_LENGTH, shipOrientation);
-                isShipPlaced = true;
             }
 
-            else if (shipOrientation == HORIZONTAL && xCor + Carrier.CARRIER_LENGTH < BattleshipSystem.GRID_LENGTH) {
-                playerShips[0] = new Carrier(xCor, yCor, xCor + Carrier.CARRIER_LENGTH, yCor, Carrier.CARRIER_LENGTH);
-                for (int x = xCor; x < xCor + Carrier.CARRIER_LENGTH; x++) {
-                    selfGrid[yCor][x] = SHIP;
+            else if (shipOrientation == HORIZONTAL && xEnd < BattleshipSystem.GRID_LENGTH) {
+                if(checkPositionValid(shipGrid, xStart, yStart, xEnd, yStart, Carrier.CARRIER_LENGTH, HORIZONTAL)) {
+                    playerShips[0] = new Carrier(xStart, yStart, xEnd, yStart);
+                    for (int x = xStart; x <= xEnd; x++) {
+                        selfGrid[yStart][x] = SHIP;
+                    }
+                    updateShipGrid(shipGrid, xStart, yStart, xEnd, yStart);
+                    isShipPlaced = true;
                 }
-                updateShipGrid(shipGrid, xCor, yCor, xCor + Carrier.CARRIER_LENGTH, yCor, shipOrientation);
-                isShipPlaced = true;
             }
         }
         while (!isShipPlaced);
@@ -137,7 +128,7 @@ public class Player {
 
     //====================== PUBLIC METHOD =======================//
     public void InitializeSelfGrid() {
-        placeCarrier(selfGrid, shipGrid, 1);
+        placeCarrier(selfGrid, shipGrid, rand.nextInt(2));
     }
 
     public String GetPlayerName() {
