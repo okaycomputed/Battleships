@@ -4,10 +4,10 @@ Rules:
 4. Player 1 will always start first
 5. The ships can come in sizes of 2 squares, 3 squares, 4 squares, and 5 squares. They will be randomly arranged at the start of every game for each player.
    Ships can be placed both vertically and horizontally but they must not be in the one block radius of another ship.
-      Carrier - 5 grids
-      Battleship - 4 grids
-      Submarine - 3 grids
-      Patrol Boat - 2 grids
+      Carrier - 5 grids   
+      Battleship - 4 grids   
+      Submarine - 3 grids   
+      Patrol Boat - 2 grids   
 
 7. There can only be 5 ships at a time on a grid, no size specification but one of each TYPE of ship at least.
 8. Your own grid will be displayed on top, while your opponent's grid will be displayed below
