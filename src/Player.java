@@ -55,12 +55,12 @@ public class Player {
     /* Private method updates the ship grid by drawing a one block rectangle around a ship so that other ships cannot
        be placed next to a ship
      * @param shipGrid - Passes in the 12x12 ship grid containing all the blocked out positions of the ships on the board */
-    private void updateShipGrid(char[][] shipGrid, int xStart, int yStart, int xEnd, int yEnd) {
+    private void updateShipGrid(int xStart, int yStart, int xEnd, int yEnd) {
         // Translate the positions on a regular "game grid" to the 12x12 "ship grid"
         // All coordinates should be incremented by ONE
         for (int y = (yStart + 1) - 1; y <= (yEnd + 1) + 1; y++) {
             for (int x = (xStart + 1) - 1; x <= (xEnd + 1) + 1; x++) {
-                shipGrid[y][x] = OCCUPIED;
+                this.shipGrid[y][x] = OCCUPIED;
             }
         }
     }
@@ -71,20 +71,20 @@ public class Player {
      * @param shipOrientation - Randomizes a number either 0 or 1 which will determine if the ship is placed
      *                        - vertically or horizontally
      * @return                - Returns "true" if there is free space for a ship to be placed */
-    public boolean checkPositionValid(char[][] shipGrid, int xStart, int yStart, int xEnd, int yEnd,
-                                      int length, int shipOrientation) {
+    private boolean checkPositionValid(int xStart, int yStart, int xEnd,
+                                      int yEnd, int length, int shipOrientation) {
         int count = 0;
         if(shipOrientation == VERTICAL) {
-            for(int y = yStart; y <= yEnd; y++) {
-                if(shipGrid[y][xStart] == EMPTY) {
+            for(int y = (yStart + 1); y <= (yEnd + 1); y++) {
+                if(this.shipGrid[y][xStart + 1] != OCCUPIED) {
                     count++;
                 }
             }
         }
 
-        else {
-            for(int x = xStart; x <= xEnd; x++) {
-                if(shipGrid[yStart][x] == EMPTY) {
+        else if(shipOrientation == HORIZONTAL) {
+            for(int x = (xStart + 1); x <= (xEnd + 1); x++) {
+                if(this.shipGrid[yStart + 1][x] != OCCUPIED) {
                     count++;
                 }
             }
@@ -92,59 +92,88 @@ public class Player {
         return count == length;
     }
 
-    /* Private method places a ship object of "carrier" subclass onto the grid on random coordinates
-     * @param selfGrid           - Passes in the current player's grid
-     * @param shipOrientation    - Randomizes a number either 0 or 1 which will determine if the ship is placed
-     *                           - vertically or horizontally */
-    private void placeCarrier(char[][] selfGrid, char[][] shipGrid, int shipOrientation) {
-        int xStart, yStart, xEnd, yEnd;
-        boolean isShipPlaced = false;
-        do {
-            // Randomize starting coordinates
-            xStart = rand.nextInt(10);
-            yStart = rand.nextInt(10);
+    private int[] randomizeShipInfo(int length, int shipOrientation) {
+        int[] shipInfo = new int[5];
+        boolean isCoordinateValid = false;
 
-            xEnd = (xStart + Carrier.CARRIER_LENGTH) - 1;
-            yEnd = (yStart + Carrier.CARRIER_LENGTH) - 1;
+        do {
+            // Randomize starting shipInfo
+            shipInfo[0] = rand.nextInt(10);       // x-start
+            shipInfo[1] = rand.nextInt(10);       // y-start
+
+            shipInfo[2] = (shipInfo[0] + length) - 1;   // x-end
+            shipInfo[3] = (shipInfo[1] + length) - 1;   // y-end
+
+            shipInfo[4] = shipOrientation;
 
             // Checking ship orientation and ensuring that the end value is not out of bounds
-            if (shipOrientation == VERTICAL && yEnd < BattleshipSystem.GRID_LENGTH) {
-                if(checkPositionValid(shipGrid, xStart, yStart, xStart, yEnd, Carrier.CARRIER_LENGTH, VERTICAL)) {
-                    // Creates the ship object inside the playerShips Ship object array
-                    playerShips[0] = new Carrier(xStart, yStart, xStart, yEnd);
-                    // Updates the char array
-                    for (int y = yStart; y <= yEnd; y++) {
-                        selfGrid[y][xStart] = SHIP;
-                    }
-                    updateShipGrid(shipGrid, xStart, yStart, xStart, yEnd);
-                    isShipPlaced = true;
+            // Different y-axis, same x-axis
+            if (shipOrientation == VERTICAL && shipInfo[3] < BattleshipSystem.GRID_LENGTH) {
+                // Checking if the ship can be placed inside the internal "ship grid"
+                if (checkPositionValid(shipInfo[0], shipInfo[1], shipInfo[0], shipInfo[3], length, VERTICAL)) {
+                    shipInfo[2] = shipInfo[0];
+                    isCoordinateValid = true;
                 }
             }
 
-            else if (shipOrientation == HORIZONTAL && xEnd < BattleshipSystem.GRID_LENGTH) {
-                if(checkPositionValid(shipGrid, xStart, yStart, xEnd, yStart, Carrier.CARRIER_LENGTH, HORIZONTAL)) {
-                    playerShips[0] = new Carrier(xStart, yStart, xEnd, yStart);
-                    for (int x = xStart; x <= xEnd; x++) {
-                        selfGrid[yStart][x] = SHIP;
-                    }
-                    updateShipGrid(shipGrid, xStart, yStart, xEnd, yStart);
-                    isShipPlaced = true;
+            // Different x-axis, same y-axis
+            else if (shipOrientation == HORIZONTAL && shipInfo[2] < BattleshipSystem.GRID_LENGTH) {
+                if (checkPositionValid(shipInfo[0], shipInfo[1], shipInfo[2], shipInfo[1], length, HORIZONTAL)) {
+                    shipInfo[3] = shipInfo[1];
+                    isCoordinateValid = true;
                 }
             }
         }
-        while (!isShipPlaced);
+        while(!isCoordinateValid);
+
+        return shipInfo;
     }
 
-    /* Just drafting out my thoughts here, but I was thinking making a method to RETURN the coordinates? Like maybe as
-       an array right because there are multiple numbers to return. Then, I can make another method to PLACE the ships
-       I think that if I make multiple methods similar to the 'placeCarrier' method its just going to be repeating a lot
-       of unneeded code.
-       One method to: Randomize coordinates, check if they are valid, then return
-       Another method to: Do blocking inside the ship grid, and update the char selfGrid */
+    private void placeShip(Ship ship) {
+        if(ship.getShipOrientation() == VERTICAL) {
+            // Updating "selfGrid" char array to display the ship in the main program
+            for (int y = ship.GetYStart(); y <= ship.GetYEnd(); y++) {
+                this.selfGrid[y][ship.GetXStart()] = SHIP;
+            }
+            // Updates the internal "shipGrid" to block out ship position
+            updateShipGrid(ship.GetXStart(), ship.GetYStart(), ship.GetXEnd(), ship.GetYEnd());
+        }
+
+        else if(ship.getShipOrientation() == HORIZONTAL) {
+            for (int x = ship.GetXStart(); x <= ship.GetXEnd(); x++) {
+                this.selfGrid[ship.GetYStart()][x] = SHIP;
+            }
+            updateShipGrid(ship.GetXStart(), ship.GetYStart(), ship.GetXEnd(), ship.GetYEnd());
+        }
+    }
 
     //====================== PUBLIC METHOD =======================//
     public void InitializeSelfGrid() {
-        placeCarrier(selfGrid, shipGrid, rand.nextInt(2));
+        int[] carrierInfo = randomizeShipInfo(Carrier.CARRIER_LENGTH, rand.nextInt(2));
+        playerShips[0] = new Carrier(carrierInfo[0], carrierInfo[1],
+                carrierInfo[2], carrierInfo[3], carrierInfo[4], Carrier.CARRIER_LENGTH);
+        placeShip(playerShips[0]);
+
+        int[] battleshipInfo = randomizeShipInfo(Battleship.BATTLESHIP_LENGTH, rand.nextInt(2));
+        playerShips[1] = new Battleship(battleshipInfo[0], battleshipInfo[1],
+                battleshipInfo[2], battleshipInfo[3], battleshipInfo[4], Battleship.BATTLESHIP_LENGTH);
+        placeShip(playerShips[1]);
+
+        int[] submarineInfo = randomizeShipInfo(Submarine.SUBMARINE_LENGTH, rand.nextInt(2));
+        playerShips[2] = new Submarine(submarineInfo[0], submarineInfo[1],
+                submarineInfo[2], submarineInfo[3], submarineInfo[4], Submarine.SUBMARINE_LENGTH);
+        placeShip(playerShips[2]);
+
+        int[] patrolBoatInfo1 = randomizeShipInfo(PatrolBoat.PATROLBOAT_LENGTH, rand.nextInt(2));
+        playerShips[3] = new PatrolBoat(patrolBoatInfo1[0], patrolBoatInfo1[1],
+                patrolBoatInfo1[2], patrolBoatInfo1[3], patrolBoatInfo1[4], PatrolBoat.PATROLBOAT_LENGTH);
+        placeShip(playerShips[3]);
+
+        int[] patrolBoatInfo2 = randomizeShipInfo(PatrolBoat.PATROLBOAT_LENGTH, rand.nextInt(2));
+        playerShips[4] = new PatrolBoat(patrolBoatInfo2[0], patrolBoatInfo2[1],
+                patrolBoatInfo2[2], patrolBoatInfo2[3], patrolBoatInfo2[4], PatrolBoat.PATROLBOAT_LENGTH);
+        placeShip(playerShips[4]);
+
     }
 
     public String GetPlayerName() {

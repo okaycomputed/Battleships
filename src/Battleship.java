@@ -1,8 +1,8 @@
 public class Battleship extends Ship {
     public static final int BATTLESHIP_LENGTH = 4;
 
-    public Battleship(int xStart, int yStart, int xEnd, int yEnd) {
-        super(xStart, yStart, xEnd, yEnd);
+    public Battleship(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size) {
+        super(xStart, yStart, xEnd, yEnd, shipOrientation, size);
     }
 
     public char[][] Attack(int xCor, int yCor, int orientation) {

@@ -25,8 +25,9 @@ public class BattleshipMain {
 
         boolean gameOver = false;
 
-        // ======== DISPLAYING PLAYER GRIDS ========
+        // ======== DISPLAYING PLAYER GRIDS =========
         d.DisplayShipGrid(bs.GetCurrPlayer().GetShipGrid());
+
         d.GameStatus(bs.GetCurrPlayer());
         d.ShowSelfGrid(bs.GetCurrPlayer().GetSelfGrid());
         System.out.println();
