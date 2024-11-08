@@ -11,7 +11,7 @@ public class Carrier extends Ship {
         int i = 0;
         for (int m = yCor; m > yCor - 3; m--) {
                 for (int k = xCor; k < xCor + 3; k++) {
-                    if (k <= BattleshipSystem.GRID_WIDTH  && m > 1) {
+                    if (k <= BattleshipSystem.GRID_LENGTH  && m > 1) {
                             int j = 0;
                             attack[i][j] = (char) k;
                             attack[i][j + 1] = (char) m;

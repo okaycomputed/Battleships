@@ -1,8 +1,7 @@
 /* The system that keeps track of all the information, such as
  * a player's own grid, the grid they are attacking and which player's turn */
 public class BattleshipSystem {
-    public static final int GRID_HEIGHT   = 10;
-    public static final int GRID_WIDTH    = 10;
+    public static final int GRID_LENGTH   = 10;
     public static final int PLAYER1_POS   = 0;
     public static final int PLAYER2_POS   = 1;
 
