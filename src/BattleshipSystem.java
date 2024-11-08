@@ -35,16 +35,29 @@ public class BattleshipSystem {
     }
 
     public void SwitchPlayer() {
-        if (this.currPlayer.equals(allPlayers[PLAYER1_POS])) {
+        if (GetCurrPlayer().equals(allPlayers[PLAYER1_POS])) {
             SetCurrPlayer(allPlayers[PLAYER2_POS]);
         }
-        else if (this.currPlayer.equals(allPlayers[PLAYER2_POS])) {
+        else if (GetCurrPlayer().equals(allPlayers[PLAYER2_POS])) {
             SetCurrPlayer(allPlayers[PLAYER1_POS]);
         }
     }
 
-    public boolean IsShipHit() {
-        return false;
+    // in BattleshipMain, pass in the OFFENSIVE Ship object and the ONE COORDINATE (x,y)
+    // with the parameters filled in
+    // finds out if ONE block is HIT/MISS
+    public boolean IsShipHit(Ship attackingShip, char[][] attackedCoords) {
+        char[][] oppGrid = GetCurrPlayer().GetOpponentGrid();
+        int row = attackedCoords[0][1] - 1;
+        int col = attackedCoords[0][0] - 1;
+        if (oppGrid[row][col] == Player.SHIP) {
+            oppGrid[row][col] = Player.HIT;                 // swap x and y and -1 the coords bc index
+            return true;
+        }
+        else {
+            oppGrid[row][col] = Player.MISS;
+            return false;
+        }
     }
 
 }
