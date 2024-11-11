@@ -1,12 +1,15 @@
 public class Carrier extends Ship {
     public static final int CARRIER_LENGTH = 5;
 
-    public Carrier(int xStart, int yStart, int xEnd, int yEnd) {
-        super(xStart, yStart, xEnd, yEnd);
+    public Carrier(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size) {
+        super(xStart, yStart, xEnd, yEnd, shipOrientation, size);
     }
 
-    public char[][] Attack(int xCor, int yCor, int orientation) {
-        char[][] attack = new char[9][2];
+    /* @param xCor   - x-coordinate to be attacked
+     * @param yCor   - y-coordinate to be attacked
+     * @return       - a 2D integer array of all the positions that have been attacked */
+    public int[][] Attack(int xCor, int yCor) {
+        int[][] attack = new int[9][2];
 
         int i = 0;
         for (int m = yCor; m > yCor - 3; m--) {

@@ -11,7 +11,7 @@ public class BattleshipSystem {
 
     private Player[] allPlayers;
     private Player currPlayer;
-    private int attackingShip;
+    private Ship currAttackingShip;
 
     //======================= CONSTRUCTOR =======================//
     /* Initialize the game's instance variables.
@@ -27,40 +27,65 @@ public class BattleshipSystem {
     }
 
     //====================== PRIVATE METHOD =======================//
+    private void SetShipStatus (char[][] opponentShips, Ship attackingShip, int xCor, int yCor) {
+        int[][] attackedPosition = attackingShip.Attack(xCor, yCor);
+        char[][] opponentDisplay = GetCurrPlayer().GetOpponentGrid();
 
-    private void SetShipStatus (Ship attackingShip, int xCor, int yCor, int orientation) {
-        char[][] attackedCoordsArr = attackingShip.Attack(xCor, yCor, orientation);
-        char[][] oppGrid = GetCurrPlayer().GetOpponentGrid();
-
-        for (int i = 0; i < attackedCoordsArr.length; i++) {
-            int row = attackedCoordsArr[i][1] - 1;
-            int col = attackedCoordsArr[i][0] - 1;
-            if (oppGrid[row][col] == Player.SHIP) {
-                oppGrid[row][col] = Player.HIT;                 // swap x and y and -1 the coords bc index
+        for (int i = 0; i < attackedPosition.length; i++) {
+            int y = attackedPosition[i][1];
+            int x = attackedPosition[i][0];
+            if (opponentShips[y][x] == Player.SHIP) {
+                opponentDisplay[y][x] = Player.HIT;                 // swap x and y and -1 the cords bc index
             }
             else {
-                oppGrid[row][col] = Player.MISS;
+                opponentDisplay[y][x] = Player.MISS;
             }
         }
     }
 
     //====================== PUBLIC METHOD =======================//
-    public int SetAttackingShip(int shipAttacking, Player p) {
-        if(shipAttacking < 1 || shipAttacking > 4) {
+    /* @param attackingShip   - input from the main program to determine the attackingShip object
+     * @return                - returns -1 if attacking ship has been set successfully
+     *                        - returns -2 if the input is out of bounds
+     *                        - returns -3 if the ship object selected has already been sunken */
+    public int SetCurrAttackingShip(int attackingShip) {
+        if(attackingShip < 1 || attackingShip > 5) {
             return INVALID_INPUT;
         }
 
-        else if(p.GetPlayerShips(shipAttacking).GetIsShipSunk()) {
+        // Input from the main program is different from the index inside the array
+        else if(GetCurrPlayer().GetPlayerShips(attackingShip - 1).GetIsShipSunk()) {
             return SHIP_ALREADY_SUNK;
         }
 
         else {
+            // Sets current attacking ship
+            // Input from the main program is different from the index inside the array
+            this.currAttackingShip = GetCurrPlayer().GetPlayerShips(attackingShip - 1);
             return SUCCESSFUL;
         }
     }
 
-    public int Attack(int xCor, int yCor) {
-        return 0;
+    public Ship GetCurrAttackingShip() {
+        return this.currAttackingShip;
+    }
+
+    public String GetAttackingShipName(Ship ship) {
+        if(ship instanceof PatrolBoat) {
+            return "Patrol Boat";
+        }
+
+        else if(ship instanceof Submarine) {
+            return "Submarine";
+        }
+
+        else if(ship instanceof Battleship) {
+            return "Battleship";
+        }
+
+        else {
+            return "Carrier";
+        }
     }
 
     public Player[] GetAllPlayers() {
@@ -84,23 +109,29 @@ public class BattleshipSystem {
         }
     }
 
-    // in BattleshipMain, pass in the OFFENSIVE Ship object and the ONE COORDINATE that is being attacked (x,y)
-    // with the parameters filled in
-    // finds out if ONE block is HIT/MISS
-    public boolean IsShipHit(int xCor, int yCor) {
-        char[][] oppGrid = GetCurrPlayer().GetOpponentGrid();
-        Ship oneBlock = new PatrolBoat(xCor, yCor, xCor, yCor); // Using Patrolboat object here to indicate only ONE BLOCK is attacked
-        SetShipStatus(oneBlock, xCor, yCor, Player.VERTICAL);  // Passing the variables into helper method SetShipStatus to change the char array
-
-        if (oppGrid[yCor - 1][xCor - 1] == Player.HIT) {
-            return true;
+    public int IsShipHit(int xCor, int yCor) {
+        // Validates the input of the x and y coordinates
+        if((xCor > GRID_LENGTH || xCor < 0) || (yCor > GRID_LENGTH || yCor < 0)) {
+            return INVALID_INPUT;
         }
-        return false;
+
+        else {
+            char[][] opponentShips;
+            // Get the opponent's ships (by getting their selfGrid)
+            if (GetCurrPlayer().equals(allPlayers[PLAYER1_POS])) {
+                opponentShips = allPlayers[PLAYER2_POS].GetSelfGrid();
+            }
+            else {
+                opponentShips = allPlayers[PLAYER1_POS].GetSelfGrid();
+            }
+
+            // Calling the specific "attack" method for the ship
+            SetShipStatus(opponentShips, GetCurrAttackingShip(), xCor, yCor);
+            return SUCCESSFUL;
+        }
     }
 
     public boolean IsShipSunk(Ship attackedShip, int xCor, int yCor) {
-        if (attackedShip instanceof PatrolBoat) {
-        }
         return false;
     }
 

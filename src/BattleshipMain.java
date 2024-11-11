@@ -50,7 +50,7 @@ public class BattleshipMain {
 
             // Insert method to set attacking ship, if ship has already been sunken or if the option is invalid,
             // return the corresponding error messages
-            int errorCode = bs.SetAttackingShip(shipOption, bs.GetCurrPlayer());
+            int errorCode = bs.SetCurrAttackingShip(shipOption);
             if(errorCode == BattleshipSystem.INVALID_INPUT) {
                 System.out.println("Ship option does not exist, please try again.");
             }
@@ -60,7 +60,7 @@ public class BattleshipMain {
             }
 
             else {
-                System.out.println("Attacking ship has been set.");
+                System.out.println("Attacking ship has been set to " + "'" + bs.GetAttackingShipName(bs.GetCurrAttackingShip()) + "'");
             }
 
             System.out.print("Please enter the x-coordinate to hit: ");

@@ -184,8 +184,7 @@ public class Player {
     }
 
     public Ship GetPlayerShips(int index) {
-        // Input from the main program is different from the index inside the array
-        return this.playerShips[index - 1];
+        return this.playerShips[index];
     }
 
     public char[][] GetSelfGrid() {
