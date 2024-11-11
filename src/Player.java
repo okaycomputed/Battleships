@@ -5,7 +5,6 @@ public class Player {
 
     private String playerName;
     private int numShipsAlive;
-    private int numShipsSunk;
     private char[][] selfGrid;
     private char[][] opponentGrid;
     private char[][] shipGrid;
@@ -30,7 +29,6 @@ public class Player {
         opponentGrid = new char[BattleshipSystem.GRID_LENGTH][BattleshipSystem.GRID_LENGTH];
         shipGrid = new char[12][12];
         numShipsAlive = TOTAL_NUM_SHIPS;
-        numShipsSunk = 0;
 
         // Making both grids empty
         for(int row = 0; row < BattleshipSystem.GRID_LENGTH; row++) {
@@ -111,6 +109,7 @@ public class Player {
             if (shipOrientation == VERTICAL && shipInfo[3] < BattleshipSystem.GRID_LENGTH) {
                 // Checking if the ship can be placed inside the internal "ship grid"
                 if (checkPositionValid(shipInfo[0], shipInfo[1], shipInfo[0], shipInfo[3], length, VERTICAL)) {
+                    // Replaces x-coordinate inside the array
                     shipInfo[2] = shipInfo[0];
                     isCoordinateValid = true;
                 }
@@ -130,7 +129,7 @@ public class Player {
     }
 
     private void placeShip(Ship ship) {
-        if(ship.getShipOrientation() == VERTICAL) {
+        if(ship.GetShipOrientation() == VERTICAL) {
             // Updating "selfGrid" char array to display the ship in the main program
             for (int y = ship.GetYStart(); y <= ship.GetYEnd(); y++) {
                 this.selfGrid[y][ship.GetXStart()] = SHIP;
@@ -139,7 +138,7 @@ public class Player {
             updateShipGrid(ship.GetXStart(), ship.GetYStart(), ship.GetXEnd(), ship.GetYEnd());
         }
 
-        else if(ship.getShipOrientation() == HORIZONTAL) {
+        else if(ship.GetShipOrientation() == HORIZONTAL) {
             for (int x = ship.GetXStart(); x <= ship.GetXEnd(); x++) {
                 this.selfGrid[ship.GetYStart()][x] = SHIP;
             }
@@ -182,10 +181,6 @@ public class Player {
 
     public int GetNumShipsAlive() {
         return this.numShipsAlive;
-    }
-
-    public int GetNumShipsSunk() {
-        return this.numShipsSunk;
     }
 
     public char[][] GetSelfGrid() {

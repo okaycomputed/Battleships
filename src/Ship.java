@@ -41,7 +41,7 @@ public abstract class Ship {
         return this.yEnd;
     }
 
-    public boolean IsShipSunk() {
+    public boolean GetIsShipSunk() {
         return this.isShipSunk;
     }
 
@@ -53,13 +53,13 @@ public abstract class Ship {
         this.shipStatus = shipStatus;
     }
 
-    public int getShipOrientation() {
-        return shipOrientation;
+    public int GetShipOrientation() {
+        return this.shipOrientation;
+    }
+
+    public int GetSize() {
+        return this.size;
     }
 
     public abstract char[][] Attack(int xCor, int yCor, int orientation);
-
-    public int getSize() {
-        return size;
-    }
 }

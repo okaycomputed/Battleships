@@ -25,6 +25,14 @@ public class BattleshipSystem {
 
 
     //====================== PUBLIC METHOD =======================//
+    public int Attack(int shipAttacking, int xCor, int yCor) {
+        return 0;
+    }
+
+    public Player[] GetAllPlayers() {
+        return this.allPlayers;
+    }
+
     public Player GetCurrPlayer() {
         return this.currPlayer;
     }
@@ -41,9 +49,15 @@ public class BattleshipSystem {
             SetCurrPlayer(allPlayers[PLAYER1_POS]);
         }
     }
-
     public boolean IsShipHit() {
         return false;
     }
 
+    public boolean IsShipSunk() {
+        return false;
+    }
+
+    public boolean IsGameOver() {
+        return false;
+    }
 }
