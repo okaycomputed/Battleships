@@ -1,8 +1,8 @@
 public class Carrier extends Ship {
     public static final int CARRIER_LENGTH = 5;
 
-    public Carrier(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size) {
-        super(xStart, yStart, xEnd, yEnd, shipOrientation, size);
+    public Carrier(int xStart, int yStart, int xEnd, int yEnd) {
+        super(xStart, yStart, xEnd, yEnd);
     }
 
     public char[][] Attack(int xCor, int yCor, int orientation) {
