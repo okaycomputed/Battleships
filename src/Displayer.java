@@ -24,8 +24,7 @@ public class Displayer {
     public void GameStatus(Player p) {
         System.out.println("---------- CURRENT STATUS ----------");
         System.out.println("Player Name     : " + p.GetPlayerName());
-        System.out.println("Own Ships Alive : " + p.GetNumShipsAlive());
-        System.out.println("Own Ships Sunk  : " + p.GetNumShipsSunk());
+        System.out.println("Ships Alive     : " + p.GetNumShipsAlive());
         System.out.println("-------------------------------------");
     }
 

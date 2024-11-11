@@ -1,8 +1,8 @@
 public class Submarine extends Ship {
     public static final int SUBMARINE_LENGTH = 3;
 
-    public Submarine(int xStart, int yStart, int xEnd, int yEnd) {
-        super(xStart, yStart, xEnd, yEnd);
+    public Submarine(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size) {
+        super(xStart, yStart, xEnd, yEnd, shipOrientation, size);
     }
 
     public char[][] Attack(int xCor, int yCor, int orientation) {

@@ -1,8 +1,8 @@
 public class PatrolBoat extends Ship {
     public static final int PATROLBOAT_LENGTH = 2;
 
-    public PatrolBoat(int xStart, int yStart, int xEnd, int yEnd) {
-        super(xStart, yStart, xEnd, yEnd);
+    public PatrolBoat(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size) {
+        super(xStart, yStart, xEnd, yEnd, shipOrientation, size);
     }
 
     public char[][] Attack(int xCor, int yCor, int orientation) {
