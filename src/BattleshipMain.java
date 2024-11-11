@@ -40,7 +40,7 @@ public class BattleshipMain {
             d.ShowOpponentGrid(bs.GetCurrPlayer().GetOpponentGrid());
             boolean turnOver = false;
 
-            System.out.println("Select a ship to carry out the attack");
+            System.out.println("Select a ship to carry out the attack: ");
             System.out.println("1. Carrier");
             System.out.println("2. Battleship");
             System.out.println("3. Submarine");
@@ -71,6 +71,9 @@ public class BattleshipMain {
 
             // Insert error checking here to ensure that the ship can be hit
             // return the results of the attack
+            int attackResult = bs.IsShipHit(attackXCor, attackYCor);
+
+
 
             bs.SwitchPlayer();
         }

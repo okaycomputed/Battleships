@@ -8,6 +8,7 @@ public class BattleshipSystem {
     public static final int SUCCESSFUL         = -1;
     public static final int INVALID_INPUT      = -2;
     public static final int SHIP_ALREADY_SUNK  = -3;
+    public static final int NO_SHIPS_HIT       = -4;
 
     private Player[] allPlayers;
     private Player currPlayer;
@@ -27,21 +28,21 @@ public class BattleshipSystem {
     }
 
     //====================== PRIVATE METHOD =======================//
-    private void SetShipStatus (char[][] opponentShips, Ship attackingShip, int xCor, int yCor) {
-        int[][] attackedPosition = attackingShip.Attack(xCor, yCor);
-        char[][] opponentDisplay = GetCurrPlayer().GetOpponentGrid();
-
-        for (int i = 0; i < attackedPosition.length; i++) {
-            int y = attackedPosition[i][1];
-            int x = attackedPosition[i][0];
-            if (opponentShips[y][x] == Player.SHIP) {
-                opponentDisplay[y][x] = Player.HIT;        // Swap x and y and -1 the cords bc index
-            }
-            else {
-                opponentDisplay[y][x] = Player.MISS;
-            }
-        }
-    }
+//    private void SetShipStatus (char[][] opponentShips, Ship attackingShip, int xCor, int yCor) {
+//        int[][] attackedPosition = attackingShip.Attack(xCor, yCor);
+//        char[][] opponentDisplay = GetCurrPlayer().GetOpponentGrid();
+//
+//        for (int i = 0; i < attackedPosition.length; i++) {
+//            int y = attackedPosition[i][1];
+//            int x = attackedPosition[i][0];
+//            if (opponentShips[y][x] == Player.SHIP) {
+//                opponentDisplay[y][x] = Player.HIT;
+//            }
+//            else {
+//                opponentDisplay[y][x] = Player.MISS;
+//            }
+//        }
+//    }
 
     //====================== PUBLIC METHOD =======================//
     /* @param attackingShip   - input from the main program to determine the attackingShip object
@@ -109,7 +110,6 @@ public class BattleshipSystem {
         }
     }
 
-
     /* @param xCor    - x-coordinate to be attacked
      * @param yCor    - y-coordinate to be attacked
      * @return        - -1 if a ship has been hit (or multiple ships have been hit)
@@ -132,8 +132,22 @@ public class BattleshipSystem {
             }
 
             // Calling the specific "attack" method for the ship
-            // Private method also updates the ship grids
-            SetShipStatus(opponentShips, GetCurrAttackingShip(), xCor, yCor);
+            // Uses polymorphism to call the appropriate attacking pattern
+            int[][] attackedPosition = GetCurrAttackingShip().Attack(xCor, yCor);
+            // Getting opponent's grid
+            char[][] opponentDisplay = GetCurrPlayer().GetOpponentGrid();
+
+            for (int i = 0; i < attackedPosition.length; i++) {
+                int y = attackedPosition[i][1];
+                int x = attackedPosition[i][0];
+                if (opponentShips[y][x] == Player.SHIP) {
+                    opponentDisplay[y][x] = Player.HIT;
+                }
+                else {
+                    opponentDisplay[y][x] = Player.MISS;
+                }
+            }
+
             return SUCCESSFUL;
         }
     }

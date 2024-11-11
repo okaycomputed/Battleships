@@ -8,12 +8,6 @@ public abstract class Ship {
     private int size;
     private boolean isShipSunk;
     private int shipStatus;
-    public final static int SHIP_ATTACKING = 1;
-
-    // There are two outcomes to a hit, 1 = ship is hit, 2 = the projectile has missed
-    // and if the hit results in a sunken ship, isShipSunk = true
-    public static final int HIT_SHIP    = -1;
-    public static final int HIT_MISSED  = -2;
 
     public Ship(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size) {
         this.xStart = xStart;
