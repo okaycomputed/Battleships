@@ -183,6 +183,11 @@ public class Player {
         return this.numShipsAlive;
     }
 
+    public Ship GetPlayerShips(int index) {
+        // Input from the main program is different from the index inside the array
+        return this.playerShips[index - 1];
+    }
+
     public char[][] GetSelfGrid() {
         return this.selfGrid;
     }

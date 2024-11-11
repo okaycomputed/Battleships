@@ -5,8 +5,13 @@ public class BattleshipSystem {
     public static final int PLAYER1_POS   = 0;
     public static final int PLAYER2_POS   = 1;
 
+    public static final int SUCCESSFUL         = -1;
+    public static final int INVALID_INPUT      = -2;
+    public static final int SHIP_ALREADY_SUNK  = -3;
+
     private Player[] allPlayers;
     private Player currPlayer;
+    private int attackingShip;
 
     //======================= CONSTRUCTOR =======================//
     /* Initialize the game's instance variables.
@@ -25,7 +30,21 @@ public class BattleshipSystem {
 
 
     //====================== PUBLIC METHOD =======================//
-    public int Attack(int shipAttacking, int xCor, int yCor) {
+    public int SetAttackingShip(int shipAttacking, Player p) {
+        if(shipAttacking < 1 || shipAttacking > 4) {
+            return INVALID_INPUT;
+        }
+
+        else if(p.GetPlayerShips(shipAttacking).GetIsShipSunk()) {
+            return SHIP_ALREADY_SUNK;
+        }
+
+        else {
+            return SUCCESSFUL;
+        }
+    }
+
+    public int Attack(int xCor, int yCor) {
         return 0;
     }
 

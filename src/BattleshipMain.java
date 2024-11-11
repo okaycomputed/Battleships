@@ -43,12 +43,25 @@ public class BattleshipMain {
             System.out.println("1. Carrier");
             System.out.println("2. Battleship");
             System.out.println("3. Submarine");
-            System.out.println("4. Patrol Boat");
+            System.out.println("4. Patrol Boat 1");
+            System.out.println("5. Patrol Boat 2");
             System.out.print("Option: ");
             int shipOption = input.nextInt();
 
             // Insert method to set attacking ship, if ship has already been sunken or if the option is invalid,
             // return the corresponding error messages
+            int errorCode = bs.SetAttackingShip(shipOption, bs.GetCurrPlayer());
+            if(errorCode == BattleshipSystem.INVALID_INPUT) {
+                System.out.println("Ship option does not exist, please try again.");
+            }
+
+            else if(errorCode == BattleshipSystem.SHIP_ALREADY_SUNK) {
+                System.out.println("The ship chosen has already been sunk, please try again.");
+            }
+
+            else {
+                System.out.println("Attacking ship has been set.");
+            }
 
             System.out.print("Please enter the x-coordinate to hit: ");
             int attackXCor = input.nextInt();
