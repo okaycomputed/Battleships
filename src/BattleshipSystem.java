@@ -62,7 +62,7 @@ public class BattleshipSystem {
     // finds out if ONE block is HIT/MISS
     public boolean IsShipHit(int xCor, int yCor) {
         char[][] oppGrid = GetCurrPlayer().GetOpponentGrid();
-        Ship oneBlock = new PatrolBoat(xCor, yCor, xCor, yCor); // Using Patrolboat object here to indicate only ONE BLOCK is attacked
+        Ship oneBlock = new PatrolBoat(xCor, yCor, xCor, yCor, Player.VERTICAL,PatrolBoat.PATROLBOAT_LENGTH); // Using Patrolboat object here to indicate only ONE BLOCK is attacked
         SetShipStatus(oneBlock, xCor, yCor, Player.VERTICAL);  // Passing the variables into helper method SetShipStatus to change the char array
 
         if (oppGrid[yCor - 1][xCor - 1] == Player.HIT) {
