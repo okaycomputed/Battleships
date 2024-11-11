@@ -35,7 +35,7 @@ public class BattleshipSystem {
             int y = attackedPosition[i][1];
             int x = attackedPosition[i][0];
             if (opponentShips[y][x] == Player.SHIP) {
-                opponentDisplay[y][x] = Player.HIT;                 // swap x and y and -1 the cords bc index
+                opponentDisplay[y][x] = Player.HIT;        // Swap x and y and -1 the cords bc index
             }
             else {
                 opponentDisplay[y][x] = Player.MISS;
@@ -109,6 +109,12 @@ public class BattleshipSystem {
         }
     }
 
+
+    /* @param xCor    - x-coordinate to be attacked
+     * @param yCor    - y-coordinate to be attacked
+     * @return        - -1 if a ship has been hit (or multiple ships have been hit)
+     *                - -2 if the input is out of bounds
+     *                - -4 if no ship has been hit */
     public int IsShipHit(int xCor, int yCor) {
         // Validates the input of the x and y coordinates
         if((xCor > GRID_LENGTH || xCor < 0) || (yCor > GRID_LENGTH || yCor < 0)) {
@@ -126,13 +132,24 @@ public class BattleshipSystem {
             }
 
             // Calling the specific "attack" method for the ship
+            // Private method also updates the ship grids
             SetShipStatus(opponentShips, GetCurrAttackingShip(), xCor, yCor);
             return SUCCESSFUL;
         }
     }
 
-    public boolean IsShipSunk(Ship attackedShip, int xCor, int yCor) {
-        return false;
+    public boolean IsShipSunk(Ship ship) {
+        char[][] selfGrid = GetCurrPlayer().GetSelfGrid();
+        int count = 0;
+
+        for(int y = ship.GetYStart(); y <= ship.GetYEnd(); y++) {
+            for(int x = ship.GetXStart(); x <= ship.GetXEnd(); x++) {
+                if(selfGrid[y][x] == Player.HIT) {
+                    count++;
+                }
+            }
+        }
+        return ship.GetSize() == count;
     }
 
 }

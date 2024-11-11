@@ -38,6 +38,7 @@ public class BattleshipMain {
             d.ShowSelfGrid(bs.GetCurrPlayer().GetSelfGrid());
             System.out.println();
             d.ShowOpponentGrid(bs.GetCurrPlayer().GetOpponentGrid());
+            boolean turnOver = false;
 
             System.out.println("Select a ship to carry out the attack");
             System.out.println("1. Carrier");
