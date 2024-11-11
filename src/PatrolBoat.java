@@ -5,10 +5,13 @@ public class PatrolBoat extends Ship {
         super(xStart, yStart, xEnd, yEnd, shipOrientation, size);
     }
 
-    public char[][] Attack(int xCor, int yCor, int orientation) {
-        char[][] attack = new char[1][2];
-        attack[0][0] = (char) xCor;
-        attack[0][1] = (char) yCor;
+    /* @param xCor   - x-coordinate to be attacked
+     * @param yCor   - y-coordinate to be attacked
+     * @return       - a 2D integer array of all the positions that have been attacked */
+    public int[][] Attack(int xCor, int yCor) {
+        int[][] attack = new int[1][2];
+        attack[0][0] = xCor;
+        attack[0][1] = yCor;
         return attack;
     }
 

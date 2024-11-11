@@ -183,6 +183,10 @@ public class Player {
         return this.numShipsAlive;
     }
 
+    public Ship GetPlayerShips(int index) {
+        return this.playerShips[index];
+    }
+
     public char[][] GetSelfGrid() {
         return this.selfGrid;
     }

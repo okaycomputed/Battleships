@@ -61,5 +61,5 @@ public abstract class Ship {
         return this.size;
     }
 
-    public abstract char[][] Attack(int xCor, int yCor, int orientation);
+    public abstract int[][] Attack(int xCor, int yCor);
 }
