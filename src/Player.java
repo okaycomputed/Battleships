@@ -170,4 +170,16 @@ public class Player {
     public char[][] GetShipGrid() {
         return this.shipGrid;
     }
+
+    // returns array containing all Ship objects
+    /*public Ship[] GetPlayerShips() {
+        return this.playerShips();
+    }
+
+    // Changes the array when a ship is sunk
+    // sunken ships will be null
+    public void SetPlayerShips(int index) {
+        this.playerShips[] = null;
+    } */
+
 }

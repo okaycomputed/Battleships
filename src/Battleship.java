@@ -11,13 +11,14 @@ public class Battleship extends Ship {
                 int j = 0;
                 attack[i][j] = (char) xCor;
                 attack[i][j+1] = (char) yCor;
-                if ( orientation == Player.HORIZONTAL && xCor < BattleshipSystem.GRID_LENGTH - 1) {
+                if ( orientation == Player.HORIZONTAL && xCor < BattleshipSystem.GRID_LENGTH) {
                     xCor++;
                 }
-                else if (orientation == Player.VERTICAL && yCor < BattleshipSystem.GRID_LENGTH - 1) {
+                else if (orientation == Player.VERTICAL && yCor < BattleshipSystem.GRID_LENGTH) {
                     yCor++;
                 }
             }
         return attack;
     }
+
 }
