@@ -22,6 +22,11 @@ public class Player {
     public static final char MISS     = '#';
     public static final char OCCUPIED = '*';
 
+    public static final char CARRIER     = 'C';
+    public static final char BATTLESHIP  = 'B';
+    public static final char SUBMARINE   = 'S';
+    public static final char PATROLBOAT  = 'P';
+
     //======================= CONSTRUCTOR =======================//
     public Player(String playerName) {
         this.playerName = playerName;
@@ -141,7 +146,7 @@ public class Player {
         if(ship.GetShipOrientation() == VERTICAL) {
             // Updating "selfGrid" char array to display the ship in the main program
             for (int y = ship.GetYStart(); y <= ship.GetYEnd(); y++) {
-                this.selfGrid[y][ship.GetXStart()] = SHIP;
+                this.selfGrid[y][ship.GetXStart()] = ship.GetShipChar();
             }
             // Updates the internal "shipGrid" to block out ship position
             updateShipGrid(ship.GetXStart(), ship.GetYStart(), ship.GetXEnd(), ship.GetYEnd());
@@ -149,7 +154,7 @@ public class Player {
 
         else if(ship.GetShipOrientation() == HORIZONTAL) {
             for (int x = ship.GetXStart(); x <= ship.GetXEnd(); x++) {
-                this.selfGrid[ship.GetYStart()][x] = SHIP;
+                this.selfGrid[ship.GetYStart()][x] = ship.GetShipChar();
             }
             updateShipGrid(ship.GetXStart(), ship.GetYStart(), ship.GetXEnd(), ship.GetYEnd());
         }
@@ -161,27 +166,27 @@ public class Player {
     public void InitializeSelfGrid() {
         int[] carrierInfo = randomizeShipInfo(Carrier.CARRIER_LENGTH, rand.nextInt(2));
         playerShips[0] = new Carrier(carrierInfo[0], carrierInfo[1],
-                carrierInfo[2], carrierInfo[3], carrierInfo[4], Carrier.CARRIER_LENGTH);
+                carrierInfo[2], carrierInfo[3], carrierInfo[4], Carrier.CARRIER_LENGTH, CARRIER);
         placeShip(playerShips[0]);
 
         int[] battleshipInfo = randomizeShipInfo(Battleship.BATTLESHIP_LENGTH, rand.nextInt(2));
         playerShips[1] = new Battleship(battleshipInfo[0], battleshipInfo[1],
-                battleshipInfo[2], battleshipInfo[3], battleshipInfo[4], Battleship.BATTLESHIP_LENGTH);
+                battleshipInfo[2], battleshipInfo[3], battleshipInfo[4], Battleship.BATTLESHIP_LENGTH, BATTLESHIP);
         placeShip(playerShips[1]);
 
         int[] submarineInfo = randomizeShipInfo(Submarine.SUBMARINE_LENGTH, rand.nextInt(2));
         playerShips[2] = new Submarine(submarineInfo[0], submarineInfo[1],
-                submarineInfo[2], submarineInfo[3], submarineInfo[4], Submarine.SUBMARINE_LENGTH);
+                submarineInfo[2], submarineInfo[3], submarineInfo[4], Submarine.SUBMARINE_LENGTH, SUBMARINE);
         placeShip(playerShips[2]);
 
         int[] patrolBoatInfo1 = randomizeShipInfo(PatrolBoat.PATROLBOAT_LENGTH, rand.nextInt(2));
         playerShips[3] = new PatrolBoat(patrolBoatInfo1[0], patrolBoatInfo1[1],
-                patrolBoatInfo1[2], patrolBoatInfo1[3], patrolBoatInfo1[4], PatrolBoat.PATROLBOAT_LENGTH);
+                patrolBoatInfo1[2], patrolBoatInfo1[3], patrolBoatInfo1[4], PatrolBoat.PATROLBOAT_LENGTH, PATROLBOAT);
         placeShip(playerShips[3]);
 
         int[] patrolBoatInfo2 = randomizeShipInfo(PatrolBoat.PATROLBOAT_LENGTH, rand.nextInt(2));
         playerShips[4] = new PatrolBoat(patrolBoatInfo2[0], patrolBoatInfo2[1],
-                patrolBoatInfo2[2], patrolBoatInfo2[3], patrolBoatInfo2[4], PatrolBoat.PATROLBOAT_LENGTH);
+                patrolBoatInfo2[2], patrolBoatInfo2[3], patrolBoatInfo2[4], PatrolBoat.PATROLBOAT_LENGTH, PATROLBOAT);
         placeShip(playerShips[4]);
 
     }

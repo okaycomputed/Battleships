@@ -28,7 +28,7 @@ public class BattleshipSystem {
     }
 
     //====================== PRIVATE METHOD =======================//
-    private boolean UpdateShipStatus (char[][] opponentShips, Ship attackingShip, int xCor, int yCor) {
+    private boolean UpdateShipStatus (char[][] opponentShips, int xCor, int yCor) {
         // Calling the specific "attack" method for the ship
         // Uses polymorphism to call the appropriate attacking pattern
         int[][] attackedPosition = GetCurrAttackingShip().Attack(xCor, yCor);
@@ -43,6 +43,7 @@ public class BattleshipSystem {
                 opponentDisplay[y][x] = Player.HIT;
                 hitCount++;
             }
+
             else {
                 opponentDisplay[y][x] = Player.MISS;
             }
@@ -138,16 +139,17 @@ public class BattleshipSystem {
             }
 
             // Calling the specific "attack" method for the ship
-            if(UpdateShipStatus(opponentShips, GetCurrAttackingShip(), xCor, yCor)) {
+            if(UpdateShipStatus(opponentShips, xCor, yCor)) {
                 return SUCCESSFUL;
             }
+
             else {
                 return NO_SHIPS_HIT;
             }
         }
     }
 
-    public boolean IsShipSunk(Ship attackedShip, int xCor, int yCor) {
+    public boolean IsShipSunk(Ship attackedShip) {
         return false;
     }
 

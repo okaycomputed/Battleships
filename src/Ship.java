@@ -1,24 +1,23 @@
 public abstract class Ship {
-    private int numShips;
     private int xStart;
     private int yStart;
     private int xEnd;
     private int yEnd;
-    private int shipOrientation;
     private int size;
+    private int shipOrientation;
+    private char shipChar;
     private boolean isShipSunk;
-    private int shipStatus;
 
-    public Ship(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size) {
+    public Ship(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size, char shipChar) {
         this.xStart = xStart;
         this.yStart = yStart;
         this.xEnd = xEnd;
         this.yEnd = yEnd;
         this.size = size;
+        this.shipChar = shipChar;
         this.shipOrientation = shipOrientation;
         this.isShipSunk = false;
     }
-
 
     public int GetXStart() {
         return this.xStart;
@@ -40,14 +39,6 @@ public abstract class Ship {
         return this.isShipSunk;
     }
 
-    public int GetShipStatus() {
-        return this.shipStatus;
-    }
-
-    public void SetShipStatus(int shipStatus) {
-        this.shipStatus = shipStatus;
-    }
-
     public int GetShipOrientation() {
         return this.shipOrientation;
     }
@@ -56,5 +47,10 @@ public abstract class Ship {
         return this.size;
     }
 
+    public char GetShipChar() {
+        return this.shipChar;
+    }
+
     public abstract int[][] Attack(int xCor, int yCor);
+
 }
