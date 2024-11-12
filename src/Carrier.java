@@ -11,8 +11,6 @@ public class Carrier extends Ship {
     public int[][] Attack(int xCor, int yCor) {
         int[][] attack = new int[9][2];
 
-        int row = yCor;
-        int col = xCor;
         int i = 0;
         int j = 0;
 
