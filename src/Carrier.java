@@ -11,36 +11,71 @@ public class Carrier extends Ship {
     public int[][] Attack(int xCor, int yCor) {
         int[][] attack = new int[9][2];
 
-        int i = 0;
         int row = yCor;
+        int col = xCor;
+        int i = 0;
+        int j = 0;
 
+        // Coordinates of the middle part of the attack pattern
+        // Middle block
+        attack[i][j] = xCor;
+        attack[i][j + 1] = yCor;
+        i++;
+        // Left block
+        if (xCor > 0) {
+            attack[i][j] = xCor - 1;
+            attack[i][j + 1] = yCor;
+            i++;
+        }
+        // Right block
+        if (xCor < BattleshipSystem.GRID_LENGTH - 1) {
+            attack[i][j] = xCor + 1;
+            attack[i][j + 1] = yCor;
+            i++;
+        }
 
-            for (int col = xCor; col < xCor + 3; col++) {
-                if (col < BattleshipSystem.GRID_LENGTH && row >= 0) {
-                    int j = 0;
-                    attack[i][j] = (char) col;
-                    attack[i][j + 1] = (char) row;
-                }
+        // Coordinates of the upper part of the attack pattern
+        yCor--;
+        // Middle block
+        if (yCor > 0 ) {
+            attack[i][j] = xCor;
+            attack[i][j + 1] = yCor;
+            i++;
+            // Left block
+            if (xCor > 0) {
+                attack[i][j] = xCor - 1;
+                attack[i][j + 1] = yCor;
+                i++;
             }
-
-            row++;
-            for (int col = xCor; col < xCor + 3; col++) {
-                if (col < BattleshipSystem.GRID_LENGTH && row >= 0) {
-                    int j = 0;
-                    attack[i][j] = (char) col;
-                    attack[i][j + 1] = (char) row;
-                }
+            // Right block
+            if (xCor < BattleshipSystem.GRID_LENGTH - 1) {
+                attack[i][j] = xCor + 1;
+                attack[i][j + 1] = yCor;
+                i++;
             }
+        }
 
-            row -= 2;
-            for (int col = xCor; col < xCor + 3; col++) {
-            if (col < BattleshipSystem.GRID_LENGTH && row >= 0) {
-                int j = 0;
-                attack[i][j] = (char) col;
-                attack[i][j + 1] = (char) row;
+        // Coordinates of the lower part of the attack pattern
+        yCor += 2;
+        // Middle block
+        if (yCor < BattleshipSystem.GRID_LENGTH) {
+            attack[i][j] = xCor;
+            attack[i][j + 1] = yCor;
+            i++;
+            // Left block
+            if (xCor > 0) {
+                attack[i][j] = xCor - 1;
+                attack[i][j + 1] = yCor;
+                i++;
+            }
+            // Right block
+            if (xCor < BattleshipSystem.GRID_LENGTH - 1) {
+                attack[i][j] = xCor + 1;
+                attack[i][j + 1] = yCor;
             }
         }
 
         return attack;
     }
+
 }
