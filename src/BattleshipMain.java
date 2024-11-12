@@ -38,40 +38,53 @@ public class BattleshipMain {
             d.ShowSelfGrid(bs.GetCurrPlayer().GetSelfGrid());
             System.out.println();
             d.ShowOpponentGrid(bs.GetCurrPlayer().GetOpponentGrid());
+            boolean turnOver = false;
 
-            System.out.println("Select a ship to carry out the attack");
-            System.out.println("1. Carrier");
-            System.out.println("2. Battleship");
-            System.out.println("3. Submarine");
-            System.out.println("4. Patrol Boat 1");
-            System.out.println("5. Patrol Boat 2");
-            System.out.print("Option: ");
-            int shipOption = input.nextInt();
+            do {
+                System.out.println("Select a ship to carry out the attack: ");
+                System.out.println("1. Carrier");
+                System.out.println("2. Battleship");
+                System.out.println("3. Submarine");
+                System.out.println("4. Patrol Boat 1");
+                System.out.println("5. Patrol Boat 2");
+                System.out.print("Option: ");
+                int shipOption = input.nextInt();
 
-            // Insert method to set attacking ship, if ship has already been sunken or if the option is invalid,
-            // return the corresponding error messages
-            int errorCode = bs.SetCurrAttackingShip(shipOption);
-            if(errorCode == BattleshipSystem.INVALID_INPUT) {
-                System.out.println("Ship option does not exist, please try again.");
+                // Insert method to set attacking ship, if ship has already been sunken or if the option is invalid,
+                // return the corresponding error messages
+                int errorCode = bs.SetCurrAttackingShip(shipOption);
+                if (errorCode == BattleshipSystem.INVALID_INPUT) {
+                    System.out.println("Ship option does not exist, please try again.");
+                }
+                else if (errorCode == BattleshipSystem.SHIP_ALREADY_SUNK) {
+                    System.out.println("The ship chosen has already been sunk, please try again.");
+                }
+                else {
+                    System.out.println("Attacking ship has been set to " + "'" + bs.GetAttackingShipName(bs.GetCurrAttackingShip()) + "'");
+                }
+
+                System.out.print("Please enter the x-coordinate to hit: ");
+                int attackXCor = input.nextInt();
+                System.out.print("Please enter the y-coordinate to hit: ");
+                int attackYCor = input.nextInt();
+
+                // Insert error checking here to ensure that the ship can be hit
+                // return the results of the attack
+                int attackResult = bs.IsShipHit(attackXCor, attackYCor);
+                if (attackResult == BattleshipSystem.SUCCESSFUL) {
+                    System.out.println("You have hit a ship! You can now take another turn.");
+                    d.GameStatus(bs.GetCurrPlayer());
+                    d.ShowOpponentGrid(bs.GetCurrPlayer().GetOpponentGrid());
+                }
+                else {
+                    d.GameStatus(bs.GetCurrPlayer());
+                    d.ShowOpponentGrid(bs.GetCurrPlayer().GetOpponentGrid());
+                    System.out.println("No ships have been hit, your turn is over.");
+                    bs.SwitchPlayer();
+                    turnOver = true;
+                }
             }
-
-            else if(errorCode == BattleshipSystem.SHIP_ALREADY_SUNK) {
-                System.out.println("The ship chosen has already been sunk, please try again.");
-            }
-
-            else {
-                System.out.println("Attacking ship has been set to " + "'" + bs.GetAttackingShipName(bs.GetCurrAttackingShip()) + "'");
-            }
-
-            System.out.print("Please enter the x-coordinate to hit: ");
-            int attackXCor = input.nextInt();
-            System.out.print("Please enter the y-coordinate to hit: ");
-            int attackYCor = input.nextInt();
-
-            // Insert error checking here to ensure that the ship can be hit
-            // return the results of the attack
-
-            bs.SwitchPlayer();
+            while(!turnOver);
         }
         while(!gameOver);
     }

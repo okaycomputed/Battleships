@@ -96,15 +96,6 @@ public class BattleshipSystem {
         return this.currPlayer;
     }
 
-    public Player GetOpponentPlayer() {
-        if (this.currPlayer == allPlayers[PLAYER1_POS]) {
-            return allPlayers[PLAYER2_POS];
-        }
-        else {
-            return allPlayers[PLAYER1_POS];
-        }
-    }
-
     public void SetCurrPlayer(Player player) {
         this.currPlayer = player;
     }
@@ -140,8 +131,8 @@ public class BattleshipSystem {
         }
     }
 
-    public boolean IsShipSunk(Ship ship) {
-        return false; //DUMMY
+    public boolean IsShipSunk(Ship attackedShip, int xCor, int yCor) {
+        return false;
     }
 
 }

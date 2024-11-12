@@ -90,6 +90,11 @@ public class Player {
         return count == length;
     }
 
+    /* Private method that randomizes the coordinates of a ship according to the length used as a parameter
+     * @param length          - Length of a ship; how many blocks it occupies
+     * @param shipOrientation - Randomizes a number either 0 or 1 which will determine if the ship is placed
+     *                        - vertically or horizontally
+     * @return                - Returns an integer array with the randomized coordinates of the ship */
     private int[] randomizeShipInfo(int length, int shipOrientation) {
         int[] shipInfo = new int[5];
         boolean isCoordinateValid = false;
@@ -128,6 +133,10 @@ public class Player {
         return shipInfo;
     }
 
+
+    /* Private method to display the "Ship" object onto the player's character grid. Blocks out positions in
+     * the internal "shipGrid" that determines where a new ship can be placed.
+     * @param ship  - Ship object to be displayed */
     private void placeShip(Ship ship) {
         if(ship.GetShipOrientation() == VERTICAL) {
             // Updating "selfGrid" char array to display the ship in the main program
@@ -147,6 +156,8 @@ public class Player {
     }
 
     //====================== PUBLIC METHOD =======================//
+    /* Randomizes the positions of each ship inside the playerShip array
+    and places them on the player's self grid */
     public void InitializeSelfGrid() {
         int[] carrierInfo = randomizeShipInfo(Carrier.CARRIER_LENGTH, rand.nextInt(2));
         playerShips[0] = new Carrier(carrierInfo[0], carrierInfo[1],
