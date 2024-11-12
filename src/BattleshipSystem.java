@@ -28,21 +28,27 @@ public class BattleshipSystem {
     }
 
     //====================== PRIVATE METHOD =======================//
-//    private void SetShipStatus (char[][] opponentShips, Ship attackingShip, int xCor, int yCor) {
-//        int[][] attackedPosition = attackingShip.Attack(xCor, yCor);
-//        char[][] opponentDisplay = GetCurrPlayer().GetOpponentGrid();
-//
-//        for (int i = 0; i < attackedPosition.length; i++) {
-//            int y = attackedPosition[i][1];
-//            int x = attackedPosition[i][0];
-//            if (opponentShips[y][x] == Player.SHIP) {
-//                opponentDisplay[y][x] = Player.HIT;
-//            }
-//            else {
-//                opponentDisplay[y][x] = Player.MISS;
-//            }
-//        }
-//    }
+    private boolean UpdateShipStatus (char[][] opponentShips, Ship attackingShip, int xCor, int yCor) {
+        // Calling the specific "attack" method for the ship
+        // Uses polymorphism to call the appropriate attacking pattern
+        int[][] attackedPosition = GetCurrAttackingShip().Attack(xCor, yCor);
+        // Getting opponent's grid
+        char[][] opponentDisplay = GetCurrPlayer().GetOpponentGrid();
+        int hitCount = 0;
+
+        for (int i = 0; i < attackedPosition.length; i++) {
+            int y = attackedPosition[i][1];
+            int x = attackedPosition[i][0];
+            if (opponentShips[y][x] == Player.SHIP) {
+                opponentDisplay[y][x] = Player.HIT;
+                hitCount++;
+            }
+            else {
+                opponentDisplay[y][x] = Player.MISS;
+            }
+        }
+        return hitCount != 0;
+    }
 
     //====================== PUBLIC METHOD =======================//
     /* @param attackingShip   - input from the main program to determine the attackingShip object
@@ -131,24 +137,14 @@ public class BattleshipSystem {
                 opponentShips = allPlayers[PLAYER1_POS].GetSelfGrid();
             }
 
-            // Calling the specific "attack" method for the ship
-            // Uses polymorphism to call the appropriate attacking pattern
-            int[][] attackedPosition = GetCurrAttackingShip().Attack(xCor, yCor);
-            // Getting opponent's grid
-            char[][] opponentDisplay = GetCurrPlayer().GetOpponentGrid();
-
-            for (int i = 0; i < attackedPosition.length; i++) {
-                int y = attackedPosition[i][1];
-                int x = attackedPosition[i][0];
-                if (opponentShips[y][x] == Player.SHIP) {
-                    opponentDisplay[y][x] = Player.HIT;
-                }
-                else {
-                    opponentDisplay[y][x] = Player.MISS;
-                }
+            // Private method to check game grids and update the statuses of the ship on the character array
+            if(UpdateShipStatus(opponentShips, GetCurrAttackingShip(), xCor, yCor)) {
+                return SUCCESSFUL;
             }
 
-            return SUCCESSFUL;
+            else {
+                return NO_SHIPS_HIT;
+            }
         }
     }
 
@@ -165,5 +161,4 @@ public class BattleshipSystem {
         }
         return ship.GetSize() == count;
     }
-
 }
