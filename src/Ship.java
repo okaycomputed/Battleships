@@ -25,6 +25,7 @@ public abstract class Ship {
         this.isShipSunk = false;
     }
 
+
     public int GetXStart() {
         return this.xStart;
     }

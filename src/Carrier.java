@@ -12,16 +12,35 @@ public class Carrier extends Ship {
         int[][] attack = new int[9][2];
 
         int i = 0;
-        for (int m = yCor; m > yCor - 3; m--) {
-                for (int k = xCor; k < xCor + 3; k++) {
-                    if (k < BattleshipSystem.GRID_LENGTH && m >= 0) {
-                            int j = 0;
-                            attack[i][j] = (char) k;
-                            attack[i][j + 1] = (char) m;
-                            i++;
-                    }
+        int row = yCor;
+
+
+            for (int col = xCor; col < xCor + 3; col++) {
+                if (col < BattleshipSystem.GRID_LENGTH && row >= 0) {
+                    int j = 0;
+                    attack[i][j] = (char) col;
+                    attack[i][j + 1] = (char) row;
                 }
             }
+
+            row++;
+            for (int col = xCor; col < xCor + 3; col++) {
+                if (col < BattleshipSystem.GRID_LENGTH && row >= 0) {
+                    int j = 0;
+                    attack[i][j] = (char) col;
+                    attack[i][j + 1] = (char) row;
+                }
+            }
+
+            row -= 2;
+            for (int col = xCor; col < xCor + 3; col++) {
+            if (col < BattleshipSystem.GRID_LENGTH && row >= 0) {
+                int j = 0;
+                attack[i][j] = (char) col;
+                attack[i][j + 1] = (char) row;
+            }
+        }
+
         return attack;
     }
 }
