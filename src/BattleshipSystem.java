@@ -8,6 +8,7 @@ public class BattleshipSystem {
     public static final int SUCCESSFUL         = -1;
     public static final int INVALID_INPUT      = -2;
     public static final int SHIP_ALREADY_SUNK  = -3;
+    public static final int NO_SHIPS_HIT       = -4;
 
     private Player[] allPlayers;
     private Player currPlayer;
@@ -27,20 +28,26 @@ public class BattleshipSystem {
     }
 
     //====================== PRIVATE METHOD =======================//
-    private void SetShipStatus (char[][] opponentShips, Ship attackingShip, int xCor, int yCor) {
-        int[][] attackedPosition = attackingShip.Attack(xCor, yCor);
+    private boolean UpdateShipStatus (char[][] opponentShips, Ship attackingShip, int xCor, int yCor) {
+        // Calling the specific "attack" method for the ship
+        // Uses polymorphism to call the appropriate attacking pattern
+        int[][] attackedPosition = GetCurrAttackingShip().Attack(xCor, yCor);
+        // Getting opponent's grid
         char[][] opponentDisplay = GetCurrPlayer().GetOpponentGrid();
+        int hitCount = 0;
 
         for (int i = 0; i < attackedPosition.length; i++) {
             int y = attackedPosition[i][1];
             int x = attackedPosition[i][0];
             if (opponentShips[y][x] == Player.SHIP) {
-                opponentDisplay[y][x] = Player.HIT;                 // swap x and y and -1 the cords bc index
+                opponentDisplay[y][x] = Player.HIT;
+                hitCount++;
             }
             else {
                 opponentDisplay[y][x] = Player.MISS;
             }
         }
+        return hitCount != 0;
     }
 
     //====================== PUBLIC METHOD =======================//
@@ -109,6 +116,11 @@ public class BattleshipSystem {
         }
     }
 
+    /* @param xCor    - x-coordinate to be attacked
+     * @param yCor    - y-coordinate to be attacked
+     * @return        - -1 if a ship has been hit (or multiple ships have been hit)
+     *                - -2 if the input is out of bounds
+     *                - -4 if no ship has been hit */
     public int IsShipHit(int xCor, int yCor) {
         // Validates the input of the x and y coordinates
         if((xCor > GRID_LENGTH || xCor < 0) || (yCor > GRID_LENGTH || yCor < 0)) {
@@ -126,8 +138,12 @@ public class BattleshipSystem {
             }
 
             // Calling the specific "attack" method for the ship
-            SetShipStatus(opponentShips, GetCurrAttackingShip(), xCor, yCor);
-            return SUCCESSFUL;
+            if(UpdateShipStatus(opponentShips, GetCurrAttackingShip(), xCor, yCor)) {
+                return SUCCESSFUL;
+            }
+            else {
+                return NO_SHIPS_HIT;
+            }
         }
     }
 
