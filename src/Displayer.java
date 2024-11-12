@@ -43,16 +43,9 @@ public class Displayer {
                 if (opponentGrid[row][col] == Player.EMPTY) {
                     System.out.print(" ");
                 }
-                else if (opponentGrid[row][col] == Player.HIT) {
-                    System.out.print(Player.HIT);
-                }
 
-                else if (opponentGrid[row][col] == Player.MISS) {
-                    System.out.print(Player.MISS);
-                }
-
-                else if (opponentGrid[row][col] == Player.SUNK) {
-                    System.out.print(Player.SUNK);
+                else {
+                    System.out.print(opponentGrid[row][col]);
                 }
 
                 System.out.print(" ");
@@ -75,24 +68,12 @@ public class Displayer {
             for (int col = 0; col < BattleshipSystem.GRID_LENGTH; col++) {
                 System.out.print(" ");
 
-                if(selfGrid[row][col] == Player.SHIP) {
-                    System.out.print(Player.SHIP);
-                }
-
-                else if(selfGrid[row][col] == Player.EMPTY) {
+                if(selfGrid[row][col] == Player.EMPTY) {
                     System.out.print(" ");
                 }
 
-                else if(selfGrid[row][col] == Player.HIT) {
-                    System.out.print(Player.HIT);
-                }
-
-                else if(selfGrid[row][col] == Player.MISS) {
-                    System.out.print(Player.MISS);
-                }
-
-                else if(selfGrid[row][col] == Player.SUNK) {
-                    System.out.print(Player.SUNK);
+                else {
+                    System.out.print(selfGrid[row][col]);
                 }
 
                 System.out.print(" ");

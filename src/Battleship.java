@@ -1,8 +1,8 @@
 public class Battleship extends Ship {
     public static final int BATTLESHIP_LENGTH = 4;
 
-    public Battleship(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size) {
-        super(xStart, yStart, xEnd, yEnd, shipOrientation, size);
+    public Battleship(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size, char shipChar) {
+        super(xStart, yStart, xEnd, yEnd, shipOrientation, size, shipChar);
     }
 
     /* @param xCor           - x-coordinate to be attacked

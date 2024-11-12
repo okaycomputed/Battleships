@@ -1,8 +1,8 @@
 public class Submarine extends Ship {
     public static final int SUBMARINE_LENGTH = 3;
 
-    public Submarine(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size) {
-        super(xStart, yStart, xEnd, yEnd, shipOrientation, size);
+    public Submarine(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size, char shipChar) {
+        super(xStart, yStart, xEnd, yEnd, shipOrientation, size, shipChar);
     }
 
     /* @param xCor   - x-coordinate to be attacked
