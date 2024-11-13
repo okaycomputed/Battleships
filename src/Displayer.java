@@ -85,6 +85,24 @@ public class Displayer {
         }
     }
 
+    // Displays the game's ending screen
+    // Shows the game winner and the results of the game
+    public void winDisplay (String winnerPlayerName) {
+        System.out.println();
+        System.out.println("       |__ | |___| |\\");
+        System.out.println("       |o__| |___| | \\");
+        System.out.println("       |___| |___| |o \\");
+        System.out.println("      _|___| |___| |__o\\");
+        System.out.println("     /...\\_____|___|____\\");
+        System.out.println("     \\   o * o * * o o  /");
+        System.out.println("⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓");
+        System.out.println("=======================================");
+        System.out.println("|           CONGRATULATIONS!          |");
+        System.out.println("=======================================");
+        System.out.println("THE GAME WINNER IS: " + winnerPlayerName);
+        System.out.println(" ------- THANK YOU FOR PLAYING! -------");
+    }
+
     // FOR TESTING PURPOSES ONLY
     public void DisplayShipGrid(char[][] shipGrid) {
         for(int i = 0; i < shipGrid.length; i++) {
