@@ -31,7 +31,7 @@ public class BattleshipMain {
 
         // ======== DISPLAYING PLAYER GRIDS =========
         // FOR TESTING PURPOSES ONLY PLEASE REMEMBER TO DELETE
-        d.DisplayShipGrid(bs.GetCurrPlayer().GetShipGrid());
+        // d.DisplayShipGrid(bs.GetCurrPlayer().GetShipGrid());
 
         do {
             d.GameStatus(bs.GetCurrPlayer());
@@ -41,6 +41,7 @@ public class BattleshipMain {
             boolean turnOver = false;
 
             do {
+                System.out.println(bs.GetCurrPlayer().GetPlayerName() + ", please take your turn.");
                 System.out.println("Select a ship to carry out the attack: ");
                 System.out.println("1. Carrier");
                 System.out.println("2. Battleship");
@@ -72,9 +73,9 @@ public class BattleshipMain {
                 // return the results of the attack
                 int attackResult = bs.IsShipHit(attackXCor, attackYCor);
                 if (attackResult == BattleshipSystem.SUCCESSFUL) {
-                    System.out.println("You have hit a ship! You can now take another turn.");
                     d.GameStatus(bs.GetCurrPlayer());
                     d.ShowOpponentGrid(bs.GetCurrPlayer().GetOpponentGrid());
+                    System.out.println("You have hit a ship! You can now take another turn.");
                 }
                 else {
                     d.GameStatus(bs.GetCurrPlayer());
@@ -85,6 +86,10 @@ public class BattleshipMain {
                 }
             }
             while(!turnOver);
+
+            if(bs.IsGameOver()) {
+                gameOver = true;
+            }
         }
         while(!gameOver);
     }

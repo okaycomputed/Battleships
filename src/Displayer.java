@@ -6,9 +6,6 @@ public class Displayer {
     //====================== PUBLIC METHOD =======================//
     /* Displays the game title screen */
     public void GameHeader() {
-        System.out.println("====================================");
-        System.out.println("|      WELCOME TO BATTLESHIPS!     |");
-        System.out.println("====================================");
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("| Rules:                                                                           |");
         System.out.println("| 1. Take turns bombing your opponent's grid                                       |");

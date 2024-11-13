@@ -1,7 +1,4 @@
-import java.util.Random;
-
 public class Player {
-    Random rand = new Random();
 
     private String playerName;
     private int numShipsAlive;
@@ -16,12 +13,12 @@ public class Player {
 
     // Global chars to represent the different grid statuses
     public static final char EMPTY    = '-';
-    public static final char SHIP     = 'S';
     public static final char SUNK     = 'X';
     public static final char HIT      = '+';
     public static final char MISS     = '#';
     public static final char OCCUPIED = '*';
 
+    // Global chars for each type of ship
     public static final char CARRIER     = 'C';
     public static final char BATTLESHIP  = 'B';
     public static final char SUBMARINE   = 'S';
@@ -106,8 +103,8 @@ public class Player {
 
         do {
             // Randomize starting shipInfo
-            shipInfo[0] = rand.nextInt(10);       // x-start
-            shipInfo[1] = rand.nextInt(10);       // y-start
+            shipInfo[0] = (int) (Math.random() * 10);   // x-start
+            shipInfo[1] = (int) (Math.random() * 10);   // y-start
 
             shipInfo[2] = (shipInfo[0] + length) - 1;   // x-end
             shipInfo[3] = (shipInfo[1] + length) - 1;   // y-end
@@ -164,27 +161,27 @@ public class Player {
     /* Randomizes the positions of each ship inside the playerShip array
     and places them on the player's self grid */
     public void InitializeSelfGrid() {
-        int[] carrierInfo = randomizeShipInfo(Carrier.CARRIER_LENGTH, rand.nextInt(2));
+        int[] carrierInfo = randomizeShipInfo(Carrier.CARRIER_LENGTH, (int) (Math.random() * 2));
         playerShips[0] = new Carrier(carrierInfo[0], carrierInfo[1],
                 carrierInfo[2], carrierInfo[3], carrierInfo[4], Carrier.CARRIER_LENGTH, CARRIER);
         placeShip(playerShips[0]);
 
-        int[] battleshipInfo = randomizeShipInfo(Battleship.BATTLESHIP_LENGTH, rand.nextInt(2));
+        int[] battleshipInfo = randomizeShipInfo(Battleship.BATTLESHIP_LENGTH, (int) (Math.random() * 2));
         playerShips[1] = new Battleship(battleshipInfo[0], battleshipInfo[1],
                 battleshipInfo[2], battleshipInfo[3], battleshipInfo[4], Battleship.BATTLESHIP_LENGTH, BATTLESHIP);
         placeShip(playerShips[1]);
 
-        int[] submarineInfo = randomizeShipInfo(Submarine.SUBMARINE_LENGTH, rand.nextInt(2));
+        int[] submarineInfo = randomizeShipInfo(Submarine.SUBMARINE_LENGTH, (int) (Math.random() * 2));
         playerShips[2] = new Submarine(submarineInfo[0], submarineInfo[1],
                 submarineInfo[2], submarineInfo[3], submarineInfo[4], Submarine.SUBMARINE_LENGTH, SUBMARINE);
         placeShip(playerShips[2]);
 
-        int[] patrolBoatInfo1 = randomizeShipInfo(PatrolBoat.PATROLBOAT_LENGTH, rand.nextInt(2));
+        int[] patrolBoatInfo1 = randomizeShipInfo(PatrolBoat.PATROLBOAT_LENGTH, (int) (Math.random() * 2));
         playerShips[3] = new PatrolBoat(patrolBoatInfo1[0], patrolBoatInfo1[1],
                 patrolBoatInfo1[2], patrolBoatInfo1[3], patrolBoatInfo1[4], PatrolBoat.PATROLBOAT_LENGTH, PATROLBOAT);
         placeShip(playerShips[3]);
 
-        int[] patrolBoatInfo2 = randomizeShipInfo(PatrolBoat.PATROLBOAT_LENGTH, rand.nextInt(2));
+        int[] patrolBoatInfo2 = randomizeShipInfo(PatrolBoat.PATROLBOAT_LENGTH, (int) (Math.random() * 2));
         playerShips[4] = new PatrolBoat(patrolBoatInfo2[0], patrolBoatInfo2[1],
                 patrolBoatInfo2[2], patrolBoatInfo2[3], patrolBoatInfo2[4], PatrolBoat.PATROLBOAT_LENGTH, PATROLBOAT);
         placeShip(playerShips[4]);
@@ -199,7 +196,15 @@ public class Player {
         return this.numShipsAlive;
     }
 
-    public Ship GetPlayerShips(int index) {
+    public void SetNumShipsAlive(int numShipsAlive) {
+        this.numShipsAlive = numShipsAlive;
+    }
+
+    public void DecrementNumShipsAlive() {
+        this.numShipsAlive--;
+    }
+
+    public Ship GetPlayerShipsAt(int index) {
         return this.playerShips[index];
     }
 

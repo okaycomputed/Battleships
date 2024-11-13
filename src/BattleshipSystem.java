@@ -12,6 +12,7 @@ public class BattleshipSystem {
 
     private Player[] allPlayers;
     private Player currPlayer;
+    private Player winner;
     private Ship currAttackingShip;
 
     //======================= CONSTRUCTOR =======================//
@@ -28,7 +29,49 @@ public class BattleshipSystem {
     }
 
     //====================== PRIVATE METHOD =======================//
-    private boolean UpdateShipStatus (char[][] opponentShips, int xCor, int yCor) {
+    private Ship getAttackedShip(char shipChar, int x, int y) {
+        if(shipChar == Player.CARRIER) {
+            return getOpponent().GetPlayerShipsAt(0);
+        }
+        else if(shipChar == Player.BATTLESHIP) {
+            return getOpponent().GetPlayerShipsAt(1);
+        }
+
+        else if(shipChar == Player.SUBMARINE) {
+            return getOpponent().GetPlayerShipsAt(2);
+        }
+
+        else {
+            Ship patrolBoat1 = getOpponent().GetPlayerShipsAt(3);
+            Ship patrolBoat2 = getOpponent().GetPlayerShipsAt(4);
+            if((patrolBoat1.GetXStart() == x || patrolBoat1.GetXEnd() == x)
+                    && patrolBoat1.GetYStart() == y || patrolBoat1.GetYEnd() == y) {
+                return patrolBoat1;
+            }
+
+            else {
+                return patrolBoat2;
+            }
+        }
+    }
+
+    private Player getOpponent() {
+        // Get the opponent's ships (by getting their selfGrid)
+        if (GetCurrPlayer().equals(allPlayers[PLAYER1_POS])) {
+            return allPlayers[PLAYER2_POS];
+        }
+        else {
+            return allPlayers[PLAYER1_POS];
+        }
+    }
+
+    /* @param opponentShips     - The character array that stores the opponent's ships (meaning this is going to be
+                                  the opponent's selfGrid that contains all the positions of their ships
+     * @param xCor              - X-coordinate of the attack's midpoint
+     * @param yCor              - Y-coordinate of the attack's midpoint
+     * @return                  - Returns true if any ship has been hit
+                                - Returns false if the attack has not hit any ships */
+    private boolean updateShipStatus (char[][] opponentShips, int xCor, int yCor) {
         // Calling the specific "attack" method for the ship
         // Uses polymorphism to call the appropriate attacking pattern
         int[][] attackedPosition = GetCurrAttackingShip().Attack(xCor, yCor);
@@ -39,8 +82,19 @@ public class BattleshipSystem {
         for (int i = 0; i < attackedPosition.length; i++) {
             int y = attackedPosition[i][1];
             int x = attackedPosition[i][0];
-            if (opponentShips[y][x] == Player.SHIP) {
+            if (opponentShips[y][x] == Player.CARRIER || opponentShips[y][x] == Player.BATTLESHIP ||
+                    opponentShips[y][x] == Player.SUBMARINE || opponentShips[y][x] == Player.PATROLBOAT) {
+                // Updates opponent grid (player's attack grid)
                 opponentDisplay[y][x] = Player.HIT;
+
+                // Checking if the ship is sunk
+                Ship attackedShip = getAttackedShip(opponentShips[y][x], x, y);
+                if(IsShipSunk(attackedShip)) {
+                    // Decreases the number of ships alive for the opponent
+                    getOpponent().DecrementNumShipsAlive();
+                }
+
+                // Increments the hit count by one
                 hitCount++;
             }
 
@@ -62,14 +116,14 @@ public class BattleshipSystem {
         }
 
         // Input from the main program is different from the index inside the array
-        else if(GetCurrPlayer().GetPlayerShips(attackingShip - 1).GetIsShipSunk()) {
+        else if(GetCurrPlayer().GetPlayerShipsAt(attackingShip - 1).GetIsShipSunk()) {
             return SHIP_ALREADY_SUNK;
         }
 
         else {
             // Sets current attacking ship
             // Input from the main program is different from the index inside the array
-            this.currAttackingShip = GetCurrPlayer().GetPlayerShips(attackingShip - 1);
+            this.currAttackingShip = GetCurrPlayer().GetPlayerShipsAt(attackingShip - 1);
             return SUCCESSFUL;
         }
     }
@@ -91,9 +145,10 @@ public class BattleshipSystem {
             return "Battleship";
         }
 
-        else {
+        else if(ship instanceof  Carrier){
             return "Carrier";
         }
+        return null;
     }
 
     public Player[] GetAllPlayers() {
@@ -129,17 +184,10 @@ public class BattleshipSystem {
         }
 
         else {
-            char[][] opponentShips;
-            // Get the opponent's ships (by getting their selfGrid)
-            if (GetCurrPlayer().equals(allPlayers[PLAYER1_POS])) {
-                opponentShips = allPlayers[PLAYER2_POS].GetSelfGrid();
-            }
-            else {
-                opponentShips = allPlayers[PLAYER1_POS].GetSelfGrid();
-            }
+            char[][] opponentShips = getOpponent().GetSelfGrid();
 
             // Calling the specific "attack" method for the ship
-            if(UpdateShipStatus(opponentShips, xCor, yCor)) {
+            if(updateShipStatus(opponentShips, xCor, yCor)) {
                 return SUCCESSFUL;
             }
 
@@ -150,7 +198,46 @@ public class BattleshipSystem {
     }
 
     public boolean IsShipSunk(Ship attackedShip) {
+        char[][] opponentShips = getOpponent().GetSelfGrid();
+        char[][] opponentDisplay = GetCurrPlayer().GetOpponentGrid();
+        int hitCount = 0;
+
+        for(int y = attackedShip.GetYStart(); y <= attackedShip.GetYEnd(); y++) {
+            for(int x = attackedShip.GetXStart(); x <= attackedShip.GetXEnd(); x++) {
+                if(opponentDisplay[y][x] == Player.HIT) {
+                    hitCount++;
+                }
+            }
+        }
+
+        if(hitCount == attackedShip.GetSize()) {
+            for(int y = attackedShip.GetYStart(); y <= attackedShip.GetYEnd(); y++) {
+                for(int x = attackedShip.GetXStart(); x <= attackedShip.GetXEnd(); x++) {
+                    // Updates the attack grid for the current player
+                    opponentDisplay[y][x] = Player.SUNK;
+                    // Updates the opponent's selfGrid to show that one of their ships have been sunk
+                    opponentShips[y][x] = Player.SUNK;
+                }
+            }
+            return true;
+        }
         return false;
     }
 
+    public boolean IsGameOver() {
+        if(GetCurrPlayer().GetNumShipsAlive() == 0) {
+            winner = getOpponent();
+            return true;
+        }
+
+        else if(getOpponent().GetNumShipsAlive() == 0) {
+            winner = GetCurrPlayer();
+            return true;
+        }
+        return false;
+    }
+
+    public Player GetWinner() {
+        return this.winner;
+    }
 }
