@@ -96,8 +96,11 @@ public class Displayer {
         System.out.println("  _______/_____\\_______\\_____");
         System.out.println("  \\              < < <       |  ");
         System.out.println("⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓");
-        System.out.println("=======================================");
-        System.out.println("|           CONGRATULATIONS!          |");
+        System.out.println("____ ___  _   _  ____ ____      _  _____ ____    _ ");
+        System.out.println("/ ___/ _ \\| \\ | |/ ___|  _ \\    / \\|_   _/ ___|  | |");
+        System.out.println("| |  | | | |  \\| | |  _| |_) |  / _ \\ | | \\___ \\  | |");
+        System.out.println("| |__| |_| | |\\  | |_| |  _ <  / ___ \\| |  ___) | |_|");
+        System.out.println(" \\____\\___/|_| \\_|\\____|_| \\_\\/_/   \\_\\_| |____/  (_)");
         System.out.println("=======================================");
         System.out.println("THE GAME WINNER IS: " + winner.GetPlayerName());
         System.out.println(" ------- THANK YOU FOR PLAYING! -------");
