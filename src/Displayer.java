@@ -9,6 +9,11 @@ public class Displayer {
         System.out.println("====================================");
         System.out.println("|      WELCOME TO BATTLESHIPS!     |");
         System.out.println("====================================");
+        System.out.println(" ____    _  _____ _____ _     _____ ____  _   _ ___ ____  ____ ");
+        System.out.println("| __ )  / \\|_   _|_   _| |   | ____/ ___|| | | |_ _|  _ \\/ ___|");
+        System.out.println("|  _ \\ / _ \\ | |   | | | |   |  _| \\___ \\| |_| || || |_) \\___ \\");
+        System.out.println("| |_) / ___ \\| |   | | | |___| |___ ___) |  _  || ||  __/ ___) |");
+        System.out.println("|____/_/   \\_\\_|   |_| |_____|_____|____/|_| |_|___|_|   |____/");
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("| Rules:                                                                           |");
         System.out.println("| 1. Take turns bombing your opponent's grid                                       |");
@@ -89,12 +94,10 @@ public class Displayer {
     // Shows the game winner and the results of the game
     public void winDisplay (String winnerPlayerName) {
         System.out.println();
-        System.out.println("       |__ | |___| |\\");
-        System.out.println("       |o__| |___| | \\");
-        System.out.println("       |___| |___| |o \\");
-        System.out.println("      _|___| |___| |__o\\");
-        System.out.println("     /...\\_____|___|____\\");
-        System.out.println("     \\   o * o * * o o  /");
+        System.out.println("                __/___            ");
+        System.out.println("          _____/______|           ");
+        System.out.println("  _______/_____\\_______\\_____");
+        System.out.println("  \\              < < <       |  ");
         System.out.println("⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓");
         System.out.println("=======================================");
         System.out.println("|           CONGRATULATIONS!          |");

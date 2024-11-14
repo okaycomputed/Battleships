@@ -87,5 +87,6 @@ public class BattleshipMain {
             while(!turnOver);
         }
         while(!gameOver);
+        d.winDisplay(bs.GetCurrPlayer().GetPlayerName());
     }
 }
