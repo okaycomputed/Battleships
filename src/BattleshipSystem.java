@@ -82,25 +82,24 @@ public class BattleshipSystem {
         for (int i = 0; i < attackedPosition.length; i++) {
             int y = attackedPosition[i][1];
             int x = attackedPosition[i][0];
-            System.out.println(x + " " + y);
-            if ( x > -1) {
-                if ( opponentShips[y][x] == Player.CARRIER || opponentShips[y][x] == Player.BATTLESHIP ||
-                        opponentShips[y][x] == Player.SUBMARINE || opponentShips[y][x] == Player.PATROLBOAT) {
-                    // Updates opponent grid (player's attack grid)
-                    opponentDisplay[y][x] = Player.HIT;
+            if (opponentShips[y][x] == Player.CARRIER || opponentShips[y][x] == Player.BATTLESHIP ||
+                    opponentShips[y][x] == Player.SUBMARINE || opponentShips[y][x] == Player.PATROLBOAT) {
+                // Updates opponent grid (player's attack grid)
+                opponentDisplay[y][x] = Player.HIT;
 
-                    // Checking if the ship is sunk
-                    Ship attackedShip = getAttackedShip(opponentShips[y][x], x, y);
-                    if (IsShipSunk(attackedShip)) {
-                        // Decreases the number of ships alive for the opponent
-                        getOpponent().DecrementNumShipsAlive();
-                    }
-
-                    // Increments the hit count by one
-                    hitCount++;
-                } else {
-                    opponentDisplay[y][x] = Player.MISS;
+                // Checking if the ship is sunk
+                Ship attackedShip = getAttackedShip(opponentShips[y][x], x, y);
+                if(IsShipSunk(attackedShip)) {
+                    // Decreases the number of ships alive for the opponent
+                    getOpponent().DecrementNumShipsAlive();
                 }
+
+                // Increments the hit count by one
+                hitCount++;
+            }
+
+            else {
+                opponentDisplay[y][x] = Player.MISS;
             }
         }
         return hitCount != 0;
