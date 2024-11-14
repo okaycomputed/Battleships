@@ -53,6 +53,7 @@ public class Carrier extends Ship {
             }
         }
 
+
         // Coordinates of the lower part of the attack pattern
         yCor += 2;
         // Middle block
@@ -70,8 +71,13 @@ public class Carrier extends Ship {
             if (xCor < BattleshipSystem.GRID_LENGTH - 1) {
                 attack[i][j] = xCor + 1;
                 attack[i][j + 1] = yCor;
+                i++;
             }
         }
+            for (int k = i; k < attack.length; k++) {
+                attack[k][j] = -1;
+                attack[k][j + 1] = -1;
+            }
         return attack;
     }
 }

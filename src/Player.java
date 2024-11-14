@@ -196,10 +196,6 @@ public class Player {
         return this.numShipsAlive;
     }
 
-    public void SetNumShipsAlive(int numShipsAlive) {
-        this.numShipsAlive = numShipsAlive;
-    }
-
     public void DecrementNumShipsAlive() {
         this.numShipsAlive--;
     }

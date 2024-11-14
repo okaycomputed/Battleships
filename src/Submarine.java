@@ -20,20 +20,36 @@ public class Submarine extends Ship {
             attack[1][j] = (xCor - 1);
             attack[1][j + 1] = yCor;
         }
+        else {
+            attack[1][j] = -1;
+            attack[1][j + 1] = -1;
+        }
         // Coordinates of the right side of the cross attack pattern
         if (xCor < BattleshipSystem.GRID_LENGTH - 1) {
             attack[2][j] = (xCor + 1);
             attack[2][j + 1] = yCor;
+        }
+        else {
+            attack[2][j] = -1;
+            attack[2][j + 1] = -1;
         }
         // Coordinates of the upper part of the cross attack pattern
         if (yCor < BattleshipSystem.GRID_LENGTH - 1) {
             attack[3][j] = xCor;
             attack[3][j + 1] = (yCor + 1);
         }
+        else {
+            attack[3][j] = -1;
+            attack[3][j + 1] = -1;
+        }
         // Coordinates of the lower part of the cross attack pattern
         if (yCor > 0) {
             attack[4][j] = xCor;
             attack[4][j + 1] = (yCor - 1);
+        }
+        else {
+            attack[4][j] = -1;
+            attack[4][j + 1] = -1;
         }
         return attack;
     }

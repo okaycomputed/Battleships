@@ -10,14 +10,33 @@ public class Battleship extends Ship {
      * @return               - a 2D integer array of all the positions that have been attacked */
     public int[][] Attack(int xCor, int yCor) {
         int[][] attack = new int[3][2];
-            for (int i = 0; i < attack.length; i++) {
-                int j = 0;
-                attack[i][j] = xCor;
-                attack[i][j+1] = yCor;
-                if (yCor < BattleshipSystem.GRID_LENGTH) {
-                    yCor++;
-                }
-            }
+        int i = 0;
+        int j = 0;
+        attack[i][j] = xCor;
+        attack[i][j + 1] = yCor;
+
+        i++;
+        yCor--;
+        if (yCor > 0) {
+            attack[i][j] = xCor;
+            attack[i][j + 1] = yCor;
+        }
+        else {
+            attack[i][j] = -1;
+            attack[i][j + 1] = -1;
+        }
+
+        i++;
+        yCor += 2;
+        if (yCor < BattleshipSystem.GRID_LENGTH) {
+            attack[i][j] = xCor;
+            attack[i][j + 1] = yCor;
+        }
+        else {
+            attack[i][j] = -1;
+            attack[i][j + 1] = -1;
+        }
+
         return attack;
     }
 }
