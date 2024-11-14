@@ -92,6 +92,5 @@ public class BattleshipMain {
             }
         }
         while(!gameOver);
-        d.winDisplay(bs.GetCurrPlayer().GetPlayerName());
     }
 }
