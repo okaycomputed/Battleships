@@ -30,8 +30,6 @@ public class BattleshipMain {
         boolean gameOver = false;
 
         // ======== DISPLAYING PLAYER GRIDS =========
-        // FOR TESTING PURPOSES ONLY PLEASE REMEMBER TO DELETE
-        // d.DisplayShipGrid(bs.GetCurrPlayer().GetShipGrid());
 
         do {
             d.GameStatus(bs.GetCurrPlayer());
@@ -41,28 +39,36 @@ public class BattleshipMain {
             boolean turnOver = false;
 
             do {
-                System.out.println(bs.GetCurrPlayer().GetPlayerName() + ", please take your turn.");
-                System.out.println("Select a ship to carry out the attack: ");
-                System.out.println("1. Carrier");
-                System.out.println("2. Battleship");
-                System.out.println("3. Submarine");
-                System.out.println("4. Patrol Boat 1");
-                System.out.println("5. Patrol Boat 2");
-                System.out.print("Option: ");
-                int shipOption = input.nextInt();
+                boolean isOptionValid = false;
 
-                // Insert method to set attacking ship, if ship has already been sunken or if the option is invalid,
-                // return the corresponding error messages
-                int errorCode = bs.SetCurrAttackingShip(shipOption);
-                if (errorCode == BattleshipSystem.INVALID_INPUT) {
-                    System.out.println("Ship option does not exist, please try again.");
+                do {
+                    System.out.println(bs.GetCurrPlayer().GetPlayerName() + ", please take your turn.");
+                    System.out.println("Select a ship to carry out the attack: ");
+                    System.out.println("1. Carrier");
+                    System.out.println("2. Battleship");
+                    System.out.println("3. Submarine");
+                    System.out.println("4. Patrol Boat 1");
+                    System.out.println("5. Patrol Boat 2");
+                    System.out.print("Option: ");
+                    int shipOption = input.nextInt();
+
+                    // Insert method to set attacking ship, if ship has already been sunken or if the option is invalid,
+                    // return the corresponding error messages
+                    int errorCode = bs.SetCurrAttackingShip(shipOption);
+                    if (errorCode == BattleshipSystem.INVALID_INPUT) {
+                        System.out.println("Ship option does not exist, please try again.");
+                    }
+
+                    else if (errorCode == BattleshipSystem.SHIP_ALREADY_SUNK) {
+                        System.out.println("The ship chosen has already been sunk, please try again.");
+                    }
+
+                    else {
+                        System.out.println("Attacking ship has been set to " + "'" + bs.GetAttackingShipName(bs.GetCurrAttackingShip()) + "'");
+                        isOptionValid = true;
+                    }
                 }
-                else if (errorCode == BattleshipSystem.SHIP_ALREADY_SUNK) {
-                    System.out.println("The ship chosen has already been sunk, please try again.");
-                }
-                else {
-                    System.out.println("Attacking ship has been set to " + "'" + bs.GetAttackingShipName(bs.GetCurrAttackingShip()) + "'");
-                }
+                while(!isOptionValid);
 
                 System.out.print("Please enter the x-coordinate to hit: ");
                 int attackXCor = input.nextInt();
@@ -77,10 +83,23 @@ public class BattleshipMain {
                     d.ShowOpponentGrid(bs.GetCurrPlayer().GetOpponentGrid());
                     System.out.println("You have hit a ship! You can now take another turn.");
                 }
-                else {
+
+                else if (attackResult == BattleshipSystem.NO_SHIPS_HIT) {
                     d.GameStatus(bs.GetCurrPlayer());
                     d.ShowOpponentGrid(bs.GetCurrPlayer().GetOpponentGrid());
                     System.out.println("No ships have been hit, your turn is over.");
+                    bs.SwitchPlayer();
+                    turnOver = true;
+                }
+
+                else if(attackResult == BattleshipSystem.INVALID_INPUT) {
+                    System.out.println("Invalid coordinates, your turn is over.");
+                    bs.SwitchPlayer();
+                    turnOver = true;
+                }
+
+                else {
+                    System.out.println("The coordinate you have entered has already been attacked, your turn is over.");
                     bs.SwitchPlayer();
                     turnOver = true;
                 }
@@ -89,6 +108,8 @@ public class BattleshipMain {
 
             if(bs.IsGameOver()) {
                 gameOver = true;
+                // Displays the ending screen
+                d.WinDisplay(bs.GetWinner());
             }
         }
         while(!gameOver);

@@ -6,9 +6,6 @@ public class Displayer {
     //====================== PUBLIC METHOD =======================//
     /* Displays the game title screen */
     public void GameHeader() {
-        System.out.println("====================================");
-        System.out.println("|      WELCOME TO BATTLESHIPS!     |");
-        System.out.println("====================================");
         System.out.println(" ____    _  _____ _____ _     _____ ____  _   _ ___ ____  ____ ");
         System.out.println("| __ )  / \\|_   _|_   _| |   | ____/ ___|| | | |_ _|  _ \\/ ___|");
         System.out.println("|  _ \\ / _ \\ | |   | | | |   |  _| \\___ \\| |_| || || |_) \\___ \\");
@@ -90,9 +87,9 @@ public class Displayer {
         }
     }
 
-    // Displays the game's ending screen
-    // Shows the game winner and the results of the game
-    public void winDisplay (String winnerPlayerName) {
+    /* Displays the game's ending screen and
+    shows the game winner and the results of the game */
+    public void WinDisplay (Player winner) {
         System.out.println();
         System.out.println("                __/___            ");
         System.out.println("          _____/______|           ");
@@ -102,7 +99,7 @@ public class Displayer {
         System.out.println("=======================================");
         System.out.println("|           CONGRATULATIONS!          |");
         System.out.println("=======================================");
-        System.out.println("THE GAME WINNER IS: " + winnerPlayerName);
+        System.out.println("THE GAME WINNER IS: " + winner.GetPlayerName());
         System.out.println(" ------- THANK YOU FOR PLAYING! -------");
     }
 
@@ -112,7 +109,6 @@ public class Displayer {
             for(int j = 0; j < shipGrid.length; j++) {
                 System.out.print(shipGrid[i][j] + " ");
             }
-
             System.out.println();
         }
     }

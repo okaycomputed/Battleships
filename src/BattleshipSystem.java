@@ -9,6 +9,7 @@ public class BattleshipSystem {
     public static final int INVALID_INPUT      = -2;
     public static final int SHIP_ALREADY_SUNK  = -3;
     public static final int NO_SHIPS_HIT       = -4;
+    public static final int ALREADY_ATTACKED   = -5;
 
     private Player[] allPlayers;
     private Player currPlayer;
@@ -92,6 +93,8 @@ public class BattleshipSystem {
                 if(IsShipSunk(attackedShip)) {
                     // Decreases the number of ships alive for the opponent
                     getOpponent().DecrementNumShipsAlive();
+                    // Sets the ship status to sunk
+                    attackedShip.SetIsShipSunk(true);
                 }
 
                 // Increments the hit count by one
@@ -174,23 +177,31 @@ public class BattleshipSystem {
 
     /* @param xCor    - x-coordinate to be attacked
      * @param yCor    - y-coordinate to be attacked
-     * @return        - -1 if a ship has been hit (or multiple ships have been hit)
-     *                - -2 if the input is out of bounds
-     *                - -4 if no ship has been hit */
+     * @return        - -1 If a ship has been hit (or multiple ships have been hit)
+     *                - -2 If the input is out of bounds
+     *                - -4 If no ship has been hit
+     *                - -5 If the coordinate on the grid has already been hit/sunk */
     public int IsShipHit(int xCor, int yCor) {
+        // Getting the opponent's ships
+        char[][] opponentShips = getOpponent().GetSelfGrid();
+        // Getting the current player's attack grid
+        char[][] opponentGrid = GetCurrPlayer().GetOpponentGrid();
+
         // Validates the input of the x and y coordinates
         if((xCor > GRID_LENGTH || xCor < 0) || (yCor > GRID_LENGTH || yCor < 0)) {
             return INVALID_INPUT;
         }
 
+        else if(opponentGrid[yCor][xCor] == Player.SUNK || opponentGrid[yCor][xCor] == Player.HIT) {
+            return ALREADY_ATTACKED;
+        }
+
         else {
-            char[][] opponentShips = getOpponent().GetSelfGrid();
 
             // Calling the specific "attack" method for the ship
             if(updateShipStatus(opponentShips, xCor, yCor)) {
                 return SUCCESSFUL;
             }
-
             else {
                 return NO_SHIPS_HIT;
             }

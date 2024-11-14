@@ -39,6 +39,10 @@ public abstract class Ship {
         return this.isShipSunk;
     }
 
+    public void SetIsShipSunk(boolean isShipSunk) {
+        this.isShipSunk = isShipSunk;
+    }
+
     public int GetShipOrientation() {
         return this.shipOrientation;
     }
