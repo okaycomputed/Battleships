@@ -72,8 +72,6 @@ public class Carrier extends Ship {
                 attack[i][j + 1] = yCor;
             }
         }
-
         return attack;
     }
-
 }
