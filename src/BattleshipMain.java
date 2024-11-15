@@ -78,7 +78,9 @@ public class BattleshipMain {
                 // Insert error checking here to ensure that the ship can be hit
                 // return the results of the attack
                 int attackResult = bs.IsShipHit(attackXCor, attackYCor);
-                if (attackResult == BattleshipSystem.SUCCESSFUL) {
+
+                // Ensures that another turn is not taken when the game should already be over
+                if (attackResult == BattleshipSystem.SUCCESSFUL && !bs.IsGameOver()) {
                     d.GameStatus(bs.GetCurrPlayer());
                     d.ShowOpponentGrid(bs.GetCurrPlayer().GetOpponentGrid());
                     System.out.println("You have hit a ship! You can now take another turn.");
@@ -98,18 +100,26 @@ public class BattleshipMain {
                     turnOver = true;
                 }
 
-                else {
+                else if(attackResult == BattleshipSystem.ALREADY_HIT) {
                     System.out.println("The coordinate you have entered has already been attacked, your turn is over.");
                     bs.SwitchPlayer();
                     turnOver = true;
                 }
+
+                // Indicates game is over, moves on to ending screen
+                else {
+                    turnOver = true;
+                }
+
             }
             while(!turnOver);
 
             if(bs.IsGameOver()) {
-                gameOver = true;
+                // Displays winning grid
+                d.ShowOpponentGrid(bs.GetWinner().GetOpponentGrid());
                 // Displays the ending screen
                 d.WinDisplay(bs.GetWinner());
+                gameOver = true;
             }
         }
         while(!gameOver);

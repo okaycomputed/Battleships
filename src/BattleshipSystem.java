@@ -107,7 +107,8 @@ public class BattleshipSystem {
                     // Increments the hit count by one
                     hitCount++;
                 }
-                else {
+                // Ensuring that it does not override the status on an already sunken ship
+                else if(opponentDisplay[y][x] != Player.SUNK){
                     opponentDisplay[y][x] = Player.MISS;
                 }
             }
