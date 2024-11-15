@@ -1,4 +1,5 @@
 public abstract class Ship {
+    // Instance variables
     private int xStart;
     private int yStart;
     private int xEnd;
@@ -8,8 +9,17 @@ public abstract class Ship {
     private char shipChar;
     private boolean isShipSunk;
 
+    // Global constant variable to indicate an attack that is not shown on the board
     public final static int OUT_OF_BOUNDS = -1;
 
+    //======================= CONSTRUCTOR =======================//
+    /* @param xStart            - Starting x-coordinate
+     * @param yStart            - Starting y-coordinate
+     * @param xEnd              - Ending x-coordinate
+     * @param yEnd              - Ending y-coordinate
+     * @param shipOrientation   - Orientation of the ship, vertical or horizontal
+     * @param size              - Size of the ship, how many blocks it occupies (also referred to as length)
+     * @param shipChar          - The character that represents the ship on the character grid */
     public Ship(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size, char shipChar) {
         this.xStart = xStart;
         this.yStart = yStart;
@@ -21,6 +31,7 @@ public abstract class Ship {
         this.isShipSunk = false;
     }
 
+    //====================== PUBLIC METHOD =======================//
     public int GetXStart() {
         return this.xStart;
     }

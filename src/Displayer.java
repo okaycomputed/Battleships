@@ -106,7 +106,7 @@ public class Displayer {
         System.out.println(" ------- THANK YOU FOR PLAYING! -------");
     }
 
-    // FOR TESTING PURPOSES ONLY
+    /* FOR TESTING PURPOSES ONLY - Displays the internal "ship grid" */
     public void DisplayShipGrid(char[][] shipGrid) {
         for(int i = 0; i < shipGrid.length; i++) {
             for(int j = 0; j < shipGrid.length; j++) {

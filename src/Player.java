@@ -25,6 +25,7 @@ public class Player {
     public static final char PATROLBOAT  = 'P';
 
     //======================= CONSTRUCTOR =======================//
+    /* @param playerName - Player name from user-input */
     public Player(String playerName) {
         this.playerName = playerName;
         selfGrid = new char[BattleshipSystem.GRID_LENGTH][BattleshipSystem.GRID_LENGTH];
@@ -67,14 +68,17 @@ public class Player {
 
     /* Private method that takes in the coordinates of a ship and compares it to the ship array to see if it can be
      * placed. If the ship grid is empty, that means there is free space.
-     * @param length          - Length of a ship; how many blocks it occupies
+     * @param length          - Length of a ship: how many blocks it occupies
      * @param shipOrientation - Randomizes a number either 0 or 1 which will determine if the ship is placed
      *                        - vertically or horizontally
      * @return                - Returns "true" if there is free space for a ship to be placed */
     private boolean checkPositionValid(int xStart, int yStart, int xEnd,
                                       int yEnd, int length, int shipOrientation) {
+        // Uses a count variable to keep track of the amount of free spaces
         int count = 0;
         if(shipOrientation == VERTICAL) {
+            // Coordinates are incremented by one to translate the positions on the internal "ship grid"
+            // to the external "game grid"
             for(int y = (yStart + 1); y <= (yEnd + 1); y++) {
                 if(this.shipGrid[y][xStart + 1] != OCCUPIED) {
                     count++;
@@ -93,7 +97,7 @@ public class Player {
     }
 
     /* Private method that randomizes the coordinates of a ship according to the length used as a parameter
-     * @param length          - Length of a ship; how many blocks it occupies
+     * @param length          - Length of a ship: how many blocks it occupies
      * @param shipOrientation - Randomizes a number either 0 or 1 which will determine if the ship is placed
      *                        - vertically or horizontally
      * @return                - Returns an integer array with the randomized coordinates of the ship */
@@ -106,6 +110,8 @@ public class Player {
             shipInfo[0] = (int) (Math.random() * 10);   // x-start
             shipInfo[1] = (int) (Math.random() * 10);   // y-start
 
+            // Both x-end and y-end are stored in the array initially
+            // as it is easier to replace the coordinates later
             shipInfo[2] = (shipInfo[0] + length) - 1;   // x-end
             shipInfo[3] = (shipInfo[1] + length) - 1;   // y-end
 
@@ -137,15 +143,17 @@ public class Player {
 
 
     /* Private method to display the "Ship" object onto the player's character grid. Blocks out positions in
-     * the internal "shipGrid" that determines where a new ship can be placed.
+     * the internal "ship grid" that determines where a new ship can be placed.
      * @param ship  - Ship object to be displayed */
     private void placeShip(Ship ship) {
         if(ship.GetShipOrientation() == VERTICAL) {
-            // Updating "selfGrid" char array to display the ship in the main program
+            // Updating "self grid" (also referred to as the "game grid") char array
+            // to display the ship in the main program
             for (int y = ship.GetYStart(); y <= ship.GetYEnd(); y++) {
                 this.selfGrid[y][ship.GetXStart()] = ship.GetShipChar();
             }
-            // Updates the internal "shipGrid" to block out ship position
+            // Updates the internal "ship grid" to block out ship position
+            // This makes it so that ships cannot be adjacent to each other
             updateShipGrid(ship.GetXStart(), ship.GetYStart(), ship.GetXEnd(), ship.GetYEnd());
         }
 
@@ -158,60 +166,70 @@ public class Player {
     }
 
     //====================== PUBLIC METHOD =======================//
-    /* Randomizes the positions of each ship inside the playerShip array
-    and places them on the player's self grid */
+    /* Randomizes the positions of each ship inside the playerShip array and places them on the player's self grid */
     public void InitializeSelfGrid() {
-        int[] carrierInfo = randomizeShipInfo(Carrier.CARRIER_LENGTH, (int) (Math.random() * 2));
-        playerShips[0] = new Carrier(carrierInfo[0], carrierInfo[1],
-                carrierInfo[2], carrierInfo[3], carrierInfo[4], Carrier.CARRIER_LENGTH, CARRIER);
+        // Getting randomized info from the private method and storing it into a 1D integer array
+        int[] carrier = randomizeShipInfo(Carrier.CARRIER_LENGTH, (int) (Math.random() * 2));
+        // Creating new carrier object in the "player ships" array that stores all the player's ships
+        // The index is incremented manually as all ships are of different subclasses
+        playerShips[0] = new Carrier(carrier[0], carrier[1], carrier[2], carrier[3], carrier[4],
+                Carrier.CARRIER_LENGTH, CARRIER);
+        // Placing the "Ship" object onto the player's own grid
         placeShip(playerShips[0]);
 
-        int[] battleshipInfo = randomizeShipInfo(Battleship.BATTLESHIP_LENGTH, (int) (Math.random() * 2));
-        playerShips[1] = new Battleship(battleshipInfo[0], battleshipInfo[1],
-                battleshipInfo[2], battleshipInfo[3], battleshipInfo[4], Battleship.BATTLESHIP_LENGTH, BATTLESHIP);
+        int[] battleship = randomizeShipInfo(Battleship.BATTLESHIP_LENGTH, (int) (Math.random() * 2));
+        playerShips[1] = new Battleship(battleship[0], battleship[1], battleship[2], battleship[3], battleship[4],
+                Battleship.BATTLESHIP_LENGTH, BATTLESHIP);
         placeShip(playerShips[1]);
 
-        int[] submarineInfo = randomizeShipInfo(Submarine.SUBMARINE_LENGTH, (int) (Math.random() * 2));
-        playerShips[2] = new Submarine(submarineInfo[0], submarineInfo[1],
-                submarineInfo[2], submarineInfo[3], submarineInfo[4], Submarine.SUBMARINE_LENGTH, SUBMARINE);
+        int[] submarine = randomizeShipInfo(Submarine.SUBMARINE_LENGTH, (int) (Math.random() * 2));
+        playerShips[2] = new Submarine(submarine[0], submarine[1], submarine[2], submarine[3],
+                submarine[4], Submarine.SUBMARINE_LENGTH, SUBMARINE);
         placeShip(playerShips[2]);
 
-        int[] patrolBoatInfo1 = randomizeShipInfo(PatrolBoat.PATROLBOAT_LENGTH, (int) (Math.random() * 2));
-        playerShips[3] = new PatrolBoat(patrolBoatInfo1[0], patrolBoatInfo1[1],
-                patrolBoatInfo1[2], patrolBoatInfo1[3], patrolBoatInfo1[4], PatrolBoat.PATROLBOAT_LENGTH, PATROLBOAT);
+        int[] patrolboat1 = randomizeShipInfo(PatrolBoat.PATROLBOAT_LENGTH, (int) (Math.random() * 2));
+        playerShips[3] = new PatrolBoat(patrolboat1[0], patrolboat1[1], patrolboat1[2], patrolboat1[3],
+                patrolboat1[4], PatrolBoat.PATROLBOAT_LENGTH, PATROLBOAT);
         placeShip(playerShips[3]);
 
-        int[] patrolBoatInfo2 = randomizeShipInfo(PatrolBoat.PATROLBOAT_LENGTH, (int) (Math.random() * 2));
-        playerShips[4] = new PatrolBoat(patrolBoatInfo2[0], patrolBoatInfo2[1],
-                patrolBoatInfo2[2], patrolBoatInfo2[3], patrolBoatInfo2[4], PatrolBoat.PATROLBOAT_LENGTH, PATROLBOAT);
+        int[] patrolBoat2 = randomizeShipInfo(PatrolBoat.PATROLBOAT_LENGTH, (int) (Math.random() * 2));
+        playerShips[4] = new PatrolBoat(patrolBoat2[0], patrolBoat2[1], patrolBoat2[2],
+                patrolBoat2[3], patrolBoat2[4], PatrolBoat.PATROLBOAT_LENGTH, PATROLBOAT);
         placeShip(playerShips[4]);
 
     }
 
+    // Getter method for this Player object's name
     public String GetPlayerName() {
         return this.playerName;
     }
 
+    // Getter method for this Player object's number of ships alive
     public int GetNumShipsAlive() {
         return this.numShipsAlive;
     }
 
+    // Decreases the number of ships alive by one
     public void DecrementNumShipsAlive() {
         this.numShipsAlive--;
     }
 
+    // Gets a Ship object from a Player's allShips array using the index as a parameter
     public Ship GetPlayerShipsAt(int index) {
         return this.playerShips[index];
     }
 
+    // Getter method for Player object's "self grid"
     public char[][] GetSelfGrid() {
         return this.selfGrid;
     }
 
+    // Getter method for Player object's "opponent grid"
     public char[][] GetOpponentGrid() {
         return this.opponentGrid;
     }
 
+    // Method for testing, kept it in so the internal grid can still be accessed
     public char[][] GetShipGrid() {
         return this.shipGrid;
     }

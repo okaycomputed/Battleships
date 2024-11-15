@@ -6,8 +6,8 @@ public class Battleship extends Ship {
     }
 
     // Battleship has a vertical 3-block attack pattern
-    /* @param xCor           - x-coordinate to be attacked
-     * @param yCor           - y-coordinate to be attacked
+    /* @param xCor           - x-coordinate to be attacked (midpoint)
+     * @param yCor           - y-coordinate to be attacked (midpoint)
      * @return               - a 2D integer array of all the positions that have been attacked */
     public int[][] Attack(int xCor, int yCor) {
         // Int array to store the coordinates positions attacked
