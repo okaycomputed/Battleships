@@ -37,7 +37,7 @@ public class Carrier extends Ship {
         // The UPPER ROW of the attack pattern is referenced here
         yCor--;
         // Stores the midpoint coordinate of the row in 1st row of the int array
-        if (yCor > 0 ) {
+        if (yCor >= 0 ) {
             attack[i][j] = xCor;
             attack[i][j + 1] = yCor;
             i++;
