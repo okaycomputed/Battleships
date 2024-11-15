@@ -5,47 +5,49 @@ public class Carrier extends Ship {
         super(xStart, yStart, xEnd, yEnd, shipOrientation, size, shipChar);
     }
 
+    // Carrier has a 3x3 block attack pattern
     /* @param xCor   - x-coordinate to be attacked
      * @param yCor   - y-coordinate to be attacked
      * @return       - a 2D integer array of all the positions that have been attacked */
     public int[][] Attack(int xCor, int yCor) {
+        // Int array to store the coordinates positions attacked
+        // The carrier can attack 9 coordinates
         int[][] attack = new int[9][2];
-
         int i = 0;
         int j = 0;
 
-        // Coordinates of the middle part of the attack pattern
-        // Middle block
+        // The MIDDLE ROW of the attack pattern is referenced here
+        // Stores the midpoint coordinate of the middle row in 1st row of the int array
         attack[i][j] = xCor;
         attack[i][j + 1] = yCor;
         i++;
-        // Left block
+        // Stores the coordinates of the left block of the row in the 2nd row of the int array
         if (xCor > 0) {
             attack[i][j] = xCor - 1;
             attack[i][j + 1] = yCor;
             i++;
         }
-        // Right block
+        // Stores the coordinates of the right block of the row in the 3rd row of the int array
         if (xCor < BattleshipSystem.GRID_LENGTH - 1) {
             attack[i][j] = xCor + 1;
             attack[i][j + 1] = yCor;
             i++;
         }
 
-        // Coordinates of the upper part of the attack pattern
+        // The UPPER ROW of the attack pattern is referenced here
         yCor--;
-        // Middle block
+        // Stores the midpoint coordinate of the row in 1st row of the int array
         if (yCor > 0 ) {
             attack[i][j] = xCor;
             attack[i][j + 1] = yCor;
             i++;
-            // Left block
+            // Stores the coordinates of the left block of the row in the 2nd row of the int array
             if (xCor > 0) {
                 attack[i][j] = xCor - 1;
                 attack[i][j + 1] = yCor;
                 i++;
             }
-            // Right block
+            // Stores the coordinates of the right block of the row in the 3rd row of the int array
             if (xCor < BattleshipSystem.GRID_LENGTH - 1) {
                 attack[i][j] = xCor + 1;
                 attack[i][j + 1] = yCor;
@@ -53,28 +55,29 @@ public class Carrier extends Ship {
             }
         }
 
-
-        // Coordinates of the lower part of the attack pattern
+        // The LOWER ROW of the attack pattern is referenced here
         yCor += 2;
-        // Middle block
+        // Stores the midpoint coordinate of the row in 1st row of the int array
         if (yCor < BattleshipSystem.GRID_LENGTH) {
             attack[i][j] = xCor;
             attack[i][j + 1] = yCor;
             i++;
-            // Left block
+            // Stores the coordinates of the left block of the row in the 2nd row of the int array
             if (xCor > 0) {
                 attack[i][j] = xCor - 1;
                 attack[i][j + 1] = yCor;
                 i++;
             }
-            // Right block
+            // Stores the coordinates of the right block of the row in the 3rd row of the int array
             if (xCor < BattleshipSystem.GRID_LENGTH - 1) {
                 attack[i][j] = xCor + 1;
                 attack[i][j + 1] = yCor;
                 i++;
             }
         }
-            for (int k = i; k < attack.length; k++) {
+
+        // In the case that there are rows in the int array left vacant, assign -1 to them
+        for (int k = i; k < attack.length; k++) {
                 attack[k][j] = -1;
                 attack[k][j + 1] = -1;
             }

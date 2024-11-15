@@ -8,6 +8,8 @@ public abstract class Ship {
     private char shipChar;
     private boolean isShipSunk;
 
+    public final static int OUT_OF_BOUNDS = -1;
+
     public Ship(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size, char shipChar) {
         this.xStart = xStart;
         this.yStart = yStart;

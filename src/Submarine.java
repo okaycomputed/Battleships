@@ -5,51 +5,49 @@ public class Submarine extends Ship {
         super(xStart, yStart, xEnd, yEnd, shipOrientation, size, shipChar);
     }
 
+    // Submarine has an upright cross attack pattern (3 blocks horizontal and 3 blocks vertical)
     /* @param xCor   - x-coordinate to be attacked
      * @param yCor   - y-coordinate to be attacked
      * @return       - a 2D integer array of all the positions that have been attacked */
     public int[][] Attack(int xCor, int yCor) {
+        // Int array to store the coordinates positions attacked
+        // The Submarine can attack 5 coordinates
         int[][] attack = new int[5][2];
-        int j = 0;
-        // Midpoint coordinates of the attack pattern
-        attack[0][j] = xCor;
-        attack[0][j + 1] = yCor;
+        int xPos = 0;
+        int yPos = 0;
+        // Stores the midpoint coordinates of the attack pattern in 1st row of the int array
+        attack[xPos][yPos] = xCor;
+        attack[xPos][yPos + 1] = yCor;
+        xPos++;
 
-        // Coordinates of the left side of the cross attack pattern
+        // Stores the coordinates of the left block of the cross attack pattern in the 2nd row of the int array
         if (xCor > 0) {
-            attack[1][j] = (xCor - 1);
-            attack[1][j + 1] = yCor;
+            attack[xPos][yPos] = (xCor - 1);
+            attack[xPos][yPos + 1] = yCor;
+            xPos++;
         }
-        else {
-            attack[1][j] = -1;
-            attack[1][j + 1] = -1;
-        }
-        // Coordinates of the right side of the cross attack pattern
+        // Stores the coordinates of the right block of the cross attack pattern in the 3rd row of the int array
         if (xCor < BattleshipSystem.GRID_LENGTH - 1) {
-            attack[2][j] = (xCor + 1);
-            attack[2][j + 1] = yCor;
+            attack[xPos][yPos] = (xCor + 1);
+            attack[xPos][yPos + 1] = yCor;
+            xPos++;
         }
-        else {
-            attack[2][j] = -1;
-            attack[2][j + 1] = -1;
-        }
-        // Coordinates of the upper part of the cross attack pattern
+        // Stores the coordinates of the lower block of the cross attack pattern in the 4th row of the int array
         if (yCor < BattleshipSystem.GRID_LENGTH - 1) {
-            attack[3][j] = xCor;
-            attack[3][j + 1] = (yCor + 1);
+            attack[xPos][yPos] = xCor;
+            attack[xPos][yPos + 1] = (yCor + 1);
+            xPos++;
         }
-        else {
-            attack[3][j] = -1;
-            attack[3][j + 1] = -1;
-        }
-        // Coordinates of the lower part of the cross attack pattern
+        // Stores the coordinates of the upper block of the cross attack pattern in the 5th row of the int array
         if (yCor > 0) {
-            attack[4][j] = xCor;
-            attack[4][j + 1] = (yCor - 1);
+            attack[xPos][yPos] = xCor;
+            attack[xPos][yPos + 1] = (yCor - 1);
+            xPos++;
         }
-        else {
-            attack[4][j] = -1;
-            attack[4][j + 1] = -1;
+        // In the case that there are rows in the int array left vacant, assign -1 to them
+        for (int k = xPos; k < attack.length; k++) {
+            attack[k][yPos] = Ship.OUT_OF_BOUNDS;
+            attack[k][yPos + 1] = Ship.OUT_OF_BOUNDS;
         }
         return attack;
     }
