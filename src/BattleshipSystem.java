@@ -17,6 +17,7 @@ public class BattleshipSystem {
     private Ship currAttackingShip;
 
     //======================= CONSTRUCTOR =======================//
+    // DEVELOPED BY: CHLOE
     /* Initialize the game's instance variables.
      * @param player1Name   - Player's name is used as a parameter for the player object to be created
      * @param player2Name   - Name for player 2 */
@@ -30,6 +31,7 @@ public class BattleshipSystem {
     }
 
     //====================== PRIVATE METHOD =======================//
+    // DEVELOPED BY: CHLOE
     /* @param shipChar     - Character that represents the corresponding ship on the board
      * @param x            - X-coordinate of the ship
      * @param y            - Y-coordinate of the ship
@@ -61,6 +63,7 @@ public class BattleshipSystem {
         }
     }
 
+    // DEVELOPED BY: CASSIE
     /* @return - The opposing Player object of the current Player object */
     private Player getOpponent() {
         // Get the opponent's ships (by getting their selfGrid)
@@ -72,6 +75,7 @@ public class BattleshipSystem {
         }
     }
 
+    // DEVELOPED BY: CASSIE
     /* @param opponentShips     - The character array that stores the opponent's ships (meaning this is going to be
                                   the opponent's selfGrid that contains all the positions of their ships
      * @param xCor              - X-coordinate of the attack's midpoint
@@ -117,6 +121,7 @@ public class BattleshipSystem {
     }
 
     //====================== PUBLIC METHOD =======================//
+    // DEVELOPED BY: CHLOE
     /* @param attackingShip   - input from the main program to determine the attackingShip object
      * @return                - returns -1 if attacking ship has been set successfully
      *                        - returns -2 if the input is out of bounds
@@ -139,13 +144,15 @@ public class BattleshipSystem {
         }
     }
 
+    // DEVELOPED BY: CHLOE
     // Gets the ship that is currently attacking
     public Ship GetCurrAttackingShip() {
         return this.currAttackingShip;
     }
 
+    // DEVELOPED BY: CHLOE
     // Gets the attacking Ship object as a String
-    public String GetAttackingShipName(Ship ship) {
+    public String GetCurrAttackingShipName(Ship ship) {
         if(ship instanceof PatrolBoat) {
             return "Patrol Boat";
         }
@@ -164,21 +171,25 @@ public class BattleshipSystem {
         return null;
     }
 
+    // DEVELOPED BY: CASSIE
     // Returns the Player array containing all the Player objects
     public Player[] GetAllPlayers() {
         return this.allPlayers;
     }
 
+    // DEVELOPED BY: CASSIE
     // Gets the current player (attacking the board at the moment)
     public Player GetCurrPlayer() {
         return this.currPlayer;
     }
 
+    // DEVELOPED BY: CASSIE
     // Sets the current player to the Player object in the parameter
     public void SetCurrPlayer(Player player) {
         this.currPlayer = player;
     }
 
+    // DEVELOPED BY: CASSIE
     /* Switches the Player object. If Player 1 is the current player,
     Player 2 will become the current player, vice versa */
     public void SwitchPlayer() {
@@ -190,6 +201,7 @@ public class BattleshipSystem {
         }
     }
 
+    // DEVELOPED BY: CASSIE
     /* @param xCor    - x-coordinate to be attacked (midpoint)
      * @param yCor    - y-coordinate to be attacked (midpoint)
      * @return        - -1 if a ship has been hit (or multiple ships have been hit)
@@ -225,6 +237,7 @@ public class BattleshipSystem {
         }
     }
 
+    // DEVELOPED BY: CHLOE
     /* Method that iterates through the entire length of a ship to check if all positions in the character array have been
      * marked as hit. If so, it replaces the characters with "X" to indicate it has been sunk, then returns true. Else, returns false
      * @param attackedShip    - Ship object that has been hit by an attack
@@ -256,7 +269,7 @@ public class BattleshipSystem {
         return false;
     }
 
-
+    // DEVELOPED BY: CHLOE
     /* Method that checks if the game is over; all ships on a player's board has been marked as "Sunk"
      * @return   - True if the number of ships alive for any Player object equals to 0 */
     public boolean IsGameOver() {
@@ -273,6 +286,7 @@ public class BattleshipSystem {
         return false;
     }
 
+    // DEVELOPED BY: CHLOE
     // Returns the Player object of the winner
     public Player GetWinner() {
         return this.winner;

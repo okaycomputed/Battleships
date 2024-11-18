@@ -25,6 +25,7 @@ public class Player {
     public static final char PATROLBOAT  = 'P';
 
     //======================= CONSTRUCTOR =======================//
+    // DEVELOPED BY: CHLOE
     /* @param playerName - Player name from user-input */
     public Player(String playerName) {
         this.playerName = playerName;
@@ -53,6 +54,7 @@ public class Player {
      }
 
     //====================== PRIVATE METHOD =======================//
+    // DEVELOPED BY: CHLOE
     /* Private method updates the ship grid by drawing a one block rectangle around a ship so that other ships cannot
        be placed next to a ship
      * @param shipGrid - Passes in the 12x12 ship grid containing all the blocked out positions of the ships on the board */
@@ -66,6 +68,7 @@ public class Player {
         }
     }
 
+    // DEVELOPED BY: CHLOE
     /* Private method that takes in the coordinates of a ship and compares it to the ship array to see if it can be
      * placed. If the ship grid is empty, that means there is free space.
      * @param length          - Length of a ship: how many blocks it occupies
@@ -96,6 +99,7 @@ public class Player {
         return count == length;
     }
 
+    // DEVELOPED BY: CHLOE
     /* Private method that randomizes the coordinates of a ship according to the length used as a parameter
      * @param length          - Length of a ship: how many blocks it occupies
      * @param shipOrientation - Randomizes a number either 0 or 1 which will determine if the ship is placed
@@ -141,7 +145,7 @@ public class Player {
         return shipInfo;
     }
 
-
+    // DEVELOPED BY: CHLOE
     /* Private method to display the "Ship" object onto the player's character grid. Blocks out positions in
      * the internal "ship grid" that determines where a new ship can be placed.
      * @param ship  - Ship object to be displayed */
@@ -166,6 +170,7 @@ public class Player {
     }
 
     //====================== PUBLIC METHOD =======================//
+    // DEVELOPED BY: CHLOE
     /* Randomizes the positions of each ship inside the playerShip array and places them on the player's self grid */
     public void InitializeSelfGrid() {
         // Getting randomized info from the private method and storing it into a 1D integer array
@@ -199,36 +204,43 @@ public class Player {
 
     }
 
+    // DEVELOPED BY: CHLOE
     // Getter method for this Player object's name
     public String GetPlayerName() {
         return this.playerName;
     }
 
+    // DEVELOPED BY: CHLOE
     // Getter method for this Player object's number of ships alive
     public int GetNumShipsAlive() {
         return this.numShipsAlive;
     }
 
+    // DEVELOPED BY: CHLOE
     // Decreases the number of ships alive by one
     public void DecrementNumShipsAlive() {
         this.numShipsAlive--;
     }
 
+    // DEVELOPED BY: CHLOE
     // Gets a Ship object from a Player's allShips array using the index as a parameter
     public Ship GetPlayerShipsAt(int index) {
         return this.playerShips[index];
     }
 
+    // DEVELOPED BY: CHLOE
     // Getter method for Player object's "self grid"
     public char[][] GetSelfGrid() {
         return this.selfGrid;
     }
 
+    // DEVELOPED BY: CHLOE
     // Getter method for Player object's "opponent grid"
     public char[][] GetOpponentGrid() {
         return this.opponentGrid;
     }
 
+    // DEVELOPED BY: CHLOE
     // Method for testing, kept it in so the internal grid can still be accessed
     public char[][] GetShipGrid() {
         return this.shipGrid;
