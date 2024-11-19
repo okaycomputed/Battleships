@@ -102,8 +102,8 @@ public class Displayer {
         System.out.println("  _______/_____\\_______\\_____");
         System.out.println("  \\              < < <       |  ");
         System.out.println("⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓⁓");
-        System.out.println("____ ___  _   _  ____ ____      _  _____ ____    _ ");
-        System.out.println("/ ___/ _ \\| \\ | |/ ___|  _ \\    / \\|_   _/ ___|  | |");
+        System.out.println(" ____ ___  _   _  ____ ____       _  _____ ____    _ ");
+        System.out.println("/ ___/ _ \\ | \\ | |/ ___|  _ \\    / \\|_   _/ ___|  | |");
         System.out.println("| |  | | | |  \\| | |  _| |_) |  / _ \\ | | \\___ \\  | |");
         System.out.println("| |__| |_| | |\\  | |_| |  _ <  / ___ \\| |  ___) | |_|");
         System.out.println(" \\____\\___/|_| \\_|\\____|_| \\_\\/_/   \\_\\_| |____/  (_)");
