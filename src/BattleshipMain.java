@@ -40,6 +40,7 @@ public class BattleshipMain {
             do {
                 boolean isOptionValid = false;
 
+                // Turn starts
                 do {
                     System.out.println(bs.GetCurrPlayer().GetPlayerName() + ", please take your turn.");
                     System.out.println("Select a ship to carry out the attack: ");
