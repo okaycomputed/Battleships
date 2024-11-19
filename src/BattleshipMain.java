@@ -30,7 +30,6 @@ public class BattleshipMain {
         boolean gameOver = false;
 
         // ======== DISPLAYING PLAYER GRIDS =========
-
         do {
             d.GameStatus(bs.GetCurrPlayer());
             d.ShowSelfGrid(bs.GetCurrPlayer().GetSelfGrid());
@@ -41,6 +40,7 @@ public class BattleshipMain {
             do {
                 boolean isOptionValid = false;
 
+                // Turn starts
                 do {
                     System.out.println(bs.GetCurrPlayer().GetPlayerName() + ", please take your turn.");
                     System.out.println("Select a ship to carry out the attack: ");
