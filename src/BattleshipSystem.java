@@ -201,7 +201,7 @@ public class BattleshipSystem {
         }
     }
 
-    // DEVELOPED BY: CASSIE
+    // DEVELOPED BY: CHLOE
     /* @param xCor    - x-coordinate to be attacked (midpoint)
      * @param yCor    - y-coordinate to be attacked (midpoint)
      * @return        - -1 if a ship has been hit (or multiple ships have been hit)
