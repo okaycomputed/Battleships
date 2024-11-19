@@ -13,6 +13,7 @@ public abstract class Ship {
     public final static int OUT_OF_BOUNDS = -1;
 
     //======================= CONSTRUCTOR =======================//
+    // DEVELOPED BY: CHLOE
     /* @param xStart            - Starting x-coordinate
      * @param yStart            - Starting y-coordinate
      * @param xEnd              - Ending x-coordinate
@@ -32,42 +33,52 @@ public abstract class Ship {
     }
 
     //====================== PUBLIC METHOD =======================//
+    // DEVELOPED BY: CASSIE
     public int GetXStart() {
         return this.xStart;
     }
 
+    // DEVELOPED BY: CASSIE
     public int GetYStart() {
         return this.yStart;
     }
 
+    // DEVELOPED BY: CASSIE
     public int GetXEnd() {
         return this.xEnd;
     }
 
+    // DEVELOPED BY: CASSIE
     public int GetYEnd() {
         return this.yEnd;
     }
 
+    // DEVELOPED BY: CASSIE
     public boolean GetIsShipSunk() {
         return this.isShipSunk;
     }
 
+    // DEVELOPED BY: CASSIE
     public void SetIsShipSunk(boolean isShipSunk) {
         this.isShipSunk = isShipSunk;
     }
 
+    // DEVELOPED BY: CASSIE
     public int GetShipOrientation() {
         return this.shipOrientation;
     }
 
+    // DEVELOPED BY: CASSIE
     public int GetSize() {
         return this.size;
     }
 
+    // DEVELOPED BY: CASSIE
     public char GetShipChar() {
         return this.shipChar;
     }
 
+    // DEVELOPED BY: CASSIE
     public abstract int[][] Attack(int xCor, int yCor);
 
 }

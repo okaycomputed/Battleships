@@ -1,10 +1,12 @@
 public class Submarine extends Ship {
     public static final int SUBMARINE_LENGTH = 3;
 
+    // DEVELOPED BY: CASSIE
     public Submarine(int xStart, int yStart, int xEnd, int yEnd, int shipOrientation, int size, char shipChar) {
         super(xStart, yStart, xEnd, yEnd, shipOrientation, size, shipChar);
     }
 
+    // DEVELOPED BY: CASSIE
     // Submarine has an upright cross attack pattern (3 blocks horizontal and 3 blocks vertical)
     /* @param xCor   - x-coordinate to be attacked (midpoint)
      * @param yCor   - y-coordinate to be attacked (midpoint)

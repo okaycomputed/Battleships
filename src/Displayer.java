@@ -1,9 +1,11 @@
 public class Displayer {
     //======================= CONSTRUCTOR =======================//
+    // DEVELOPED BY: CHLOE
     public Displayer() {
     }
 
     //====================== PUBLIC METHOD =======================//
+    // DEVELOPED BY: CHLOE
     /* Displays the game title screen */
     public void GameHeader() {
         System.out.println(" ____    _  _____ _____ _     _____ ____  _   _ ___ ____  ____ ");
@@ -22,6 +24,7 @@ public class Displayer {
         System.out.println("Press 'enter' to start");
     }
 
+    // DEVELOPED BY: CHLOE
     /* Displays the player's game status */
     public void GameStatus(Player p) {
         System.out.println("---------- CURRENT STATUS ----------");
@@ -30,6 +33,7 @@ public class Displayer {
         System.out.println("-------------------------------------");
     }
 
+    // DEVELOPED BY: CHLOE
     /* Displays the grid that the player can attack */
     public void ShowOpponentGrid(char[][] opponentGrid) {
         System.out.println("Your opponent's grid:");
@@ -59,6 +63,7 @@ public class Displayer {
         }
     }
 
+    // DEVELOPED BY: CHLOE
     /* Displays the player's own ships */
     public void ShowSelfGrid(char[][] selfGrid) {
         System.out.println("Your grid:");
@@ -87,6 +92,7 @@ public class Displayer {
         }
     }
 
+    // DEVELOPED BY: CASSIE
     /* Displays the game's ending screen and
     shows the game winner and the results of the game */
     public void WinDisplay (Player winner) {
@@ -106,6 +112,7 @@ public class Displayer {
         System.out.println(" ------- THANK YOU FOR PLAYING! -------");
     }
 
+    // DEVELOPED BY: CHLOE
     /* FOR TESTING PURPOSES ONLY - Displays the internal "ship grid" */
     public void DisplayShipGrid(char[][] shipGrid) {
         for(int i = 0; i < shipGrid.length; i++) {

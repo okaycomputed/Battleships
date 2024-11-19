@@ -64,7 +64,7 @@ public class BattleshipMain {
                     }
 
                     else {
-                        System.out.println("Attacking ship has been set to " + "'" + bs.GetAttackingShipName(bs.GetCurrAttackingShip()) + "'");
+                        System.out.println("Attacking ship has been set to " + "'" + bs.GetCurrAttackingShipName(bs.GetCurrAttackingShip()) + "'");
                         isOptionValid = true;
                     }
                 }
