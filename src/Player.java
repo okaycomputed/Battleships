@@ -177,6 +177,7 @@ public class Player {
         int[] carrier = randomizeShipInfo(Carrier.CARRIER_LENGTH, (int) (Math.random() * 2));
         // Creating new carrier object in the "player ships" array that stores all the player's ships
         // The index is incremented manually as all ships are of different subclasses
+        // The array stores ships from largest to smallest
         playerShips[0] = new Carrier(carrier[0], carrier[1], carrier[2], carrier[3], carrier[4],
                 Carrier.CARRIER_LENGTH, CARRIER);
         // Placing the "Ship" object onto the player's own grid
